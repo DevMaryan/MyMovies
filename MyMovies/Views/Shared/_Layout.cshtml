@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/css/style.css" >
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="header">
+        <div class="logo">
+            <a asp-controller="Home" asp-action="Index" class="nolink">
+                <i class="fas fa-camera fa-4x clr">&nbsp;</i>
+                <p class='logo-para'>MUVICO</p>
+            </a>
+        </div>
+        <div class="menu">
+            <a asp-controller="Home" asp-action="Create" class="btn">Create</a>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <div id="footer">
+        <div class="menu">
+            <a asp-controller="Home" asp-action="Index" class="header-btn">Home</a>
+            <a asp-controller="Home" asp-action="Admin" class="header-btn">Admin</a>
+            <a asp-controller="Home" asp-action="Update" class="header-btn">Update</a>
+            <a asp-controller="Home" asp-action="Detail" class="header-btn">Detail</a>
+            <a asp-controller="Home" asp-action="Create" class="header-btn">Create</a>
+        </div>
+        <p>My Movies &copy; 2021 All Rights are reserved.</p>
+    </div>
+</body>
+</html>
