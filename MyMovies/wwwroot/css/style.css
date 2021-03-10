@@ -243,23 +243,23 @@ input[type=number] {
 .create{
     padding:0.5rem 1rem;
     cursor:pointer;
-    background-color:#e50914;
+    background-color:#91268f;
     color:#FFF;
     border-radius:3px;
 }
-.read{
-    padding:0.5rem 1rem;
-    cursor:pointer;
-    background-color:#77BC11;
-    color:#FFF;
-    border-radius:3px;
+.read {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: #91268f;
+    color: #FFF;
+    border-radius: 3px;
 }
-.update{
-    padding:0.5rem 1rem;
-    cursor:pointer;
-    background-color:#094fe5;
-    color:#FFF;
-    border-radius:3px;
+.update {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: #91268f;
+    color: #FFF;
+    border-radius: 3px;
 }
 .delete{
     padding:0.5rem 1rem;
