@@ -1,0 +1,34 @@
+﻿@model MyMovies.Models.Movie
+@{
+    ViewBag.Title = "Delete";
+}
+<div id="container3">
+    <div id="wrapper">
+        <!-- SINGLE MOVIE CARD-->
+        <div class="single-card">
+            <div class="flx">
+                <img class="single-card-img" src="@Model.ImageUrl">
+                <div class="single-card-genre">
+                    <p class='single-card-title'><b></b>Title</p>
+                    <h1>@Model.Title</h1>
+                    <p><b>Genre</b></p>
+                    <h1>@Model.Genre</h1>
+
+                </div>
+            </div>
+            <div class="single-card-description">
+                <p><b>Description</b></p>
+                <br>
+                <p>@Model.Description</p>
+                <br>
+                <p style='font-size:12px;'>@Model.Date</p>
+            </div>
+        </div>
+        <br>
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Delete" class="btn" />
+        </form>
+        <a asp-controller="Home" asp-action="Index" class="btn"><i class="fas fa-arrow-left"></i> Back</a>
+    </div>
+</div>

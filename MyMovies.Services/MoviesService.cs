@@ -2,33 +2,39 @@
 using System.Collections.Generic;
 using System.Text;
 using MyMovies.Models;
-using MyMovies.Repositories;
-
+using MyMovies.Repositories.Interfaces;
+using MyMovies.Services.Interfaces;
 
 namespace MyMovies.Services
 {
-    public class MoviesService
+    public class MoviesService : IMoviesService
     {
-        public MoviesRepository _movieRepository { get; set; }
-       
-        public MoviesService()
+        public IMoviesRepository _movieRepository { get; set; }
+
+        public MoviesService(IMoviesRepository movieRepository)
         {
-            _movieRepository = new MoviesRepository();
+            _movieRepository = movieRepository;
         }
 
+        // Service -> Get All Movies -> Repository 
         public List<Movie> GetAllMovies()
         {
             return _movieRepository.GetAllMovies();
         }
 
+        // Service -> Get Movie id -> Repository by id
         public Movie GetMovieById(int id)
         {
             return _movieRepository.GetMovieById(id);
         }
 
-        public void DeleteMovieById(int id)
+        // Service -> Repository -> Create Movie
+        public void CreateMovie(Movie movie)
         {
-            _movieRepository.DeleteMovie(id);
+            _movieRepository.CreateMovie(movie);
         }
+
+
+
     }
 }

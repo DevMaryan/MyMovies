@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MyMovies.Services;
+using MyMovies.Services.Interfaces;
 
 namespace MyMovies.Controllers
 {
     public class HomeController : Controller
     {
-        private MoviesService _service { get; set; }
+        private IMoviesService _service { get; set; }
 
-        public HomeController()
+        public HomeController(IMoviesService service)
         {
 
-            _service = new MoviesService();
+            _service = service;
         }
         public IActionResult Index()
         {
@@ -42,11 +43,7 @@ namespace MyMovies.Controllers
             return View();
         }
 
-        public IActionResult Delete(int id)
-        {
-            var selected_movie = _service.DeleteMovieById(id);
-            return RedirectToAction("Index", "Home");
-        }
+
         public IActionResult Admin()
         {
             var all_movies = _service.GetAllMovies();
