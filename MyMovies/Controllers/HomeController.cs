@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyMovies.Services;
 using MyMovies.Services.Interfaces;
+using MyMovies.Models;
 
 namespace MyMovies.Controllers
 {
@@ -22,9 +23,22 @@ namespace MyMovies.Controllers
             var movies = _service.GetAllMovies();
             return View(movies);
         }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Movie movie)
+        {
+            if (ModelState.IsValid)
+            {
+                _service.CreateMovie(movie);
+                return RedirectToAction("Index");
+            }
+            return View(movie);
         }
         public IActionResult Detail(int id)
         {
