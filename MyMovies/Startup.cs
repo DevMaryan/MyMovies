@@ -30,7 +30,8 @@ namespace MyMovies
             services.AddControllersWithViews();
             // Register the Interfaces for Services & Repository
             services.AddTransient<IMoviesService, MoviesService>();
-            services.AddTransient<IMoviesRepository, MoviesFileRepository>();
+            //services.AddTransient<IMoviesRepository, MoviesFileRepository>();
+            services.AddTransient<IMoviesRepository, MoviesSqlRepository>();
         }
     
 

@@ -11,7 +11,7 @@ namespace MyMovies.Models
         [StringLength(maximumLength:50,MinimumLength = 3)]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Enter valid image url")]
         public string ImageUrl { get; set; }
 
         [Required]
