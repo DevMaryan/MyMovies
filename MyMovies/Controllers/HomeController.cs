@@ -18,12 +18,14 @@ namespace MyMovies.Controllers
 
             _service = service;
         }
-        public IActionResult Index()
+        // Index PAGE
+        public IActionResult Index(string title)
         {
-            var movies = _service.GetAllMovies();
+            var movies = _service.GetMovieByTitle(title);
             return View(movies);
         }
 
+        // CREATE MOVIE 
         [HttpGet]
         public IActionResult Create()
         {
@@ -40,6 +42,13 @@ namespace MyMovies.Controllers
             }
             return View(movie);
         }
+        // DELETE MOVIE
+        public IActionResult Delete(Movie movie)
+        {
+            _service.DeleteMovie(movie);
+            return RedirectToAction("Index");
+        }
+        // DETAIL MOVIE
         public IActionResult Detail(int id)
         {
             // Get Movie by ID
@@ -52,17 +61,14 @@ namespace MyMovies.Controllers
 
             return View(select_movie);
         }
-        public IActionResult Update()
-        {
-            return View();
-        }
 
-
+        // ADMIN TABLE
         public IActionResult Admin()
         {
             var all_movies = _service.GetAllMovies();
             return View(all_movies);
         }
+
 
     }
 }

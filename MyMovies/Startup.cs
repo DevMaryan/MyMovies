@@ -12,6 +12,7 @@ using MyMovies.Repositories;
 using MyMovies.Repositories.Interfaces;
 using MyMovies.Services;
 using MyMovies.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyMovies
 {
@@ -27,13 +28,17 @@ namespace MyMovies
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = MyMovies; Trusted_Connection = True"));
             services.AddControllersWithViews();
-            // Register the Interfaces for Services & Repository
             services.AddTransient<IMoviesService, MoviesService>();
+            services.AddTransient<IMoviesRepository, MoviesRepository>();
+
+            // Register the Interfaces for Services & Repository
             //services.AddTransient<IMoviesRepository, MoviesFileRepository>();
-            services.AddTransient<IMoviesRepository, MoviesSqlRepository>();
+            //services.AddTransient<IMoviesRepository, MoviesSqlRepository>();
+
         }
-    
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

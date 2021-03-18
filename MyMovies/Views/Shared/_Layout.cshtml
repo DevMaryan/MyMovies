@@ -17,10 +17,18 @@
                 <p class='logo-para'>MUVICO</p>
             </a>
         </div>
+        <div>
+            <form action="/Home/Index" method="get" id="search_bar">
+                <input type="text" name="Title" value="" class="search_bar_input" placeholder="search by title" />
+                <input type="submit" value="Search" class="btn-search" />
+            </form>
+        </div>
+
         <div class="menu">
             <a asp-controller="Home" asp-action="Create" class="btn">Create</a>
             <a asp-controller="Info" asp-action="About" class="btn">About</a>
             <a asp-controller="Info" asp-action="Contact" class="btn">Contact</a>
+
         </div>
     </div>
     <div>

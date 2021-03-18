@@ -281,3 +281,26 @@ a{
     color:rgba(50, 50, 93, 0.25);
     margin:0rem 0.5rem;
 }
+#search_bar{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-content:center;
+}
+.search_bar_input{
+    padding:0.5rem 1rem;
+    border-radius:3px 0px 0px 3px;
+    border:1px solid #666;
+
+}
+.btn-search {
+    border-radius: 0px 3px 3px 0px;
+    border:0;
+    padding: 0.5rem 1.3rem;
+    background-color: #666;
+    color:#FFF;
+    cursor:pointer;
+}
+.btn-search:hover{
+    opacity:0.9;
+}

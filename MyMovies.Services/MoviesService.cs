@@ -34,7 +34,29 @@ namespace MyMovies.Services
             _movieRepository.CreateMovie(movie);
         }
 
+        // Service -> Repository -> Get movie by title
+        public List<Movie> GetMovieByTitle(string title)
+        {
+            if (title == null)
+            {
+                return _movieRepository.GetAllMovies();
+            }
+            else
+            {
+                return _movieRepository.GetByTitle(title);
+            }
 
+        }
+        // Service -> Repository -> Delete Movie
+        public void DeleteMovie(Movie movie)
+        {
+            _movieRepository.DeleteMovie(movie);
+        }
+        // Service -> Repository -> Update Movie
+        public void UpdateMovie(Movie movie)
+        {
+            _movieRepository.UpdateMovie(movie);
+        }
 
     }
 }

@@ -5,6 +5,7 @@ namespace MyMovies.Models
 {
     public class Movie
     {
+        [Key]//Not neccessary
         public int Id { get; set; }
 
         [Required]
