@@ -6,23 +6,38 @@
     ViewBag.Title = "Home";
 }
 
-
+@if (ViewBag.ErrorMessage != null)
+{
+    <div>@ViewBag.ErrorMessage</div>
+}
+@if (ViewBag.SuccessMessage != null)
+{
+    <div>@ViewBag.SuccessMessage</div>
+}
 <div id="container2">
-
-    @foreach (var movie in Model)
+    @if (Model.Count() == 0)
     {
-        <!-- MAIN CARD-->
-        <div class="card">
-            <img class="card-img" src="@movie.ImageUrl">
-            <p class='card-title'>@movie.Title</p>
-            <div class="card-genre">
-                <p>@movie.Genre</p>
+        <p>No Data</p>
+    }
+    else
+    {
+        @foreach (var movie in Model)
+        {
+            <!-- MAIN CARD-->
+            <div class="card">
+                <img class="card-img" src="@movie.ImageUrl">
+                <p class='card-title'>@movie.Title</p>
+                <div class="card-genre">
+                    <p>@movie.Genre</p>
+                </div>
+                <a href="/Home/Detail/@movie.Id" class="btn2">VIEW</a>
             </div>
-            <a href="/Home/Detail/@movie.Id" class="btn2">VIEW</a>
-        </div>
-        <!-- END OF MAIN CARD-->
+            <!-- END OF MAIN CARD-->
+
+        }
 
     }
+
 
 
 

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MyMovies.Services;
 using MyMovies.Services.Interfaces;
 using MyMovies.Models;
+using MyMovies.Common.Exceptions;
 
 namespace MyMovies.Controllers
 {
@@ -38,16 +39,30 @@ namespace MyMovies.Controllers
             if (ModelState.IsValid)
             {
                 _service.CreateMovie(movie);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { SuccessMessage = "Movie is successfully created." });
             }
             return View(movie);
         }
         // DELETE MOVIE
-        public IActionResult Delete(Movie movie)
+        public IActionResult Delete(int id)
         {
-            _service.DeleteMovie(movie);
-            return RedirectToAction("Index");
+            try
+            {
+                _service.DeleteMovie(id);
+                return RedirectToAction("Admin", new { SuccessMessage = "Movie is deleted successfully" });
+            }
+            catch (NotFoundException ex)
+            {
+                return RedirectToAction("Admin", new { ErrorMessage = ex.Message });
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Error", "Info");
+            }
         }
+        // UPDATE MOVIE
+
+
         // DETAIL MOVIE
         public IActionResult Detail(int id)
         {
@@ -63,8 +78,10 @@ namespace MyMovies.Controllers
         }
 
         // ADMIN TABLE
-        public IActionResult Admin()
+        public IActionResult Admin(string errorMessage, string successMessage)
         {
+            ViewBag.ErrorMessage = errorMessage;
+            ViewBag.SuccessMessage = successMessage;
             var all_movies = _service.GetAllMovies();
             return View(all_movies);
         }

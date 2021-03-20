@@ -5,16 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="MoviesFileRepository.OLD" />
-    <None Remove="MoviesSqlRepository.OLD" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="MoviesFileRepository.OLD" />
-    <Compile Include="MoviesSqlRepository.OLD" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.13">

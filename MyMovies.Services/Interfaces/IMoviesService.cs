@@ -13,7 +13,7 @@ namespace MyMovies.Services.Interfaces
         Movie GetMovieById(int id);
 
         void CreateMovie(Movie movie);
-        void DeleteMovie(Movie movie);
+        void DeleteMovie(int id);
         void UpdateMovie(Movie movie);
     }
 }

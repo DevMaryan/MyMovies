@@ -4,6 +4,7 @@ using System.Text;
 using MyMovies.Models;
 using MyMovies.Repositories.Interfaces;
 using MyMovies.Services.Interfaces;
+using MyMovies.Common.Exceptions;
 
 namespace MyMovies.Services
 {
@@ -48,9 +49,17 @@ namespace MyMovies.Services
 
         }
         // Service -> Repository -> Delete Movie
-        public void DeleteMovie(Movie movie)
+        public void DeleteMovie(int id)
         {
-            _movieRepository.DeleteMovie(movie);
+            var movie = _movieRepository.GetMovieById(id);
+            if(movie == null)
+            {
+                throw new NotFoundException($"The movie with {id} was not found");
+            }
+            else
+            {
+                _movieRepository.DeleteMovie(movie);
+            }
         }
         // Service -> Repository -> Update Movie
         public void UpdateMovie(Movie movie)
