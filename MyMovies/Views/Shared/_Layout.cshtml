@@ -43,9 +43,12 @@
         <p>My Movies &copy; 2021 All Rights are reserved.</p>
         @if (ViewBag.SuccessMessage != null)
         {
-            <div class="msgbox" >@ViewBag.SuccessMessage</div>
+            <div id ="msgbox" class="msgbox" >@ViewBag.SuccessMessage<span id="msg_close">&times;</span></div>
         }
 
     </div>
+    <script type ="text/javascript" src="~/js/messages.js"></script>
+    <script src ="~/lib/jquery/dist/jquery.js"></script>
+    <script src ="~/js/hidemessages.js"></script>
 </body>
 </html>

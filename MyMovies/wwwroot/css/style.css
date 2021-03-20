@@ -314,3 +314,11 @@ a{
     border-radius: 3px;
     padding:0.5rem 1rem;
 }
+#msg_close {
+    background-color: #bbb;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 20px;
+    margin-left:5px;
+    cursor:pointer;
+}
