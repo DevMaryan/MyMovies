@@ -25,5 +25,9 @@ namespace MyMovies.Controllers
             ViewBag.Message = message;
             return View();
         }
+        public IActionResult GeneralError()
+        {
+            return View();
+        }
     }
 }

@@ -251,23 +251,23 @@ input[type=number] {
 .read {
     padding: 0.5rem 1rem;
     cursor: pointer;
-    background-color: #91268f;
+    background-color: #dfdfdf;
     color: #FFF;
     border-radius: 3px;
 }
 .update {
     padding: 0.5rem 1rem;
     cursor: pointer;
-    background-color: #91268f;
+    background-color: #5bbd4d;
     color: #FFF;
     border-radius: 3px;
 }
-.delete{
-    padding:0.5rem 1rem;
-    cursor:pointer;
-    background-color:#91268f;
-    color:#FFF;
-    border-radius:3px;
+.delete {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    background-color: #e50914;
+    color: #FFF;
+    border-radius: 3px;
 }
 a{
     text-decoration:none;

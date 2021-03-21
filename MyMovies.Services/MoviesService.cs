@@ -17,25 +17,25 @@ namespace MyMovies.Services
             _movieRepository = movieRepository;
         }
 
-        // Service -> Get All Movies -> Repository 
+        // Service ->  Get All Movies -> Interface -> Repository 
         public List<Movie> GetAllMovies()
         {
             return _movieRepository.GetAllMovies();
         }
 
-        // Service -> Get Movie id -> Repository by id
+        // Service -> Get Movie id -> Interface -> Repository by id
         public Movie GetMovieById(int id)
         {
             return _movieRepository.GetMovieById(id);
         }
 
-        // Service -> Repository -> Create Movie
+        // Service -> Repository -> Interface -> Create Movie
         public void CreateMovie(Movie movie)
         {
             _movieRepository.CreateMovie(movie);
         }
 
-        // Service -> Repository -> Get movie by title
+        // Service -> Repository -> Interface -> Get movie by title
         public List<Movie> GetMovieByTitle(string title)
         {
             if (title == null)
@@ -54,7 +54,7 @@ namespace MyMovies.Services
             var movie = _movieRepository.GetMovieById(id);
             if(movie == null)
             {
-                throw new NotFoundException($"The movie with {id} was not found");
+                throw new NotFoundException($"The movie with {id} was not found.");
             }
             else
             {
@@ -66,6 +66,5 @@ namespace MyMovies.Services
         {
             _movieRepository.UpdateMovie(movie);
         }
-
     }
 }

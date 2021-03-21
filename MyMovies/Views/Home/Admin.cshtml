@@ -11,14 +11,7 @@
 else
 {
 <div id="container">
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div>@ViewBag.ErrorMessage</div>
-    }
-    @if (ViewBag.SuccessMessage != null)
-    {
-        <div>@ViewBag.SuccessMessage</div>
-    }
+
     <table class="tbl" border="0" cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -42,8 +35,8 @@ else
                     <td><img src="@movie.ImageUrl" style="width:45px;height:45px;border-radius:3px;object-fit:cover;" /></td>
                     <td>@movie.Genre</td>
                     <td>@movie.Date</td>
-                    <th><a href="/Home/Detail/@movie.Id" class="read">Read</a></th>
-                    <th><a href="/Home/Update/@movie.Id" class="update">Update</a></th>
+                    <th><a href="/Home/Detail/@movie.Id" class="read">View</a></th>
+                    <th><a asp-action="Update" asp-route-id="@movie.Id" class="update">Update</a></th>
                     <th><a href="/Home/Delete/@movie.Id" class="delete">Delete</a></th>
 
                 </tr>

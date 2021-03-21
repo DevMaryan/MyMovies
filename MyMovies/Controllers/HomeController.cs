@@ -49,7 +49,7 @@ namespace MyMovies.Controllers
             try
             {
                 _service.DeleteMovie(id);
-                return RedirectToAction("Admin", new { SuccessMessage = "Movie is deleted successfully" });
+                return RedirectToAction("Admin", new { SuccessMessage = "Movie is deleted successfully" }); // Anonymous object which sends message
             }
             catch (NotFoundException ex)
             {
@@ -60,21 +60,84 @@ namespace MyMovies.Controllers
                 return RedirectToAction("Error", "Info");
             }
         }
-        // UPDATE MOVIE
+        // UPDATE MOVIE - Just Show the Movie
+        [HttpGet]
+        public IActionResult Update(int id)
+        {
+            try
+            {  
+                var update_movie = _service.GetMovieById(id);
 
+                if (update_movie == null)
+                {
+                    return RedirectToAction("Error", "Info");
+                }
+                return View(update_movie);
+            }
+            catch (NotFoundException ex)
+            {
+                return RedirectToAction("Admin", new { ErrorMessage = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Info");
+            }
+        }
+
+        // UPDATE MOVIE - EDIT the Movie
+        [HttpPost]
+
+        public IActionResult Update(int id, string title, string imageurl, string genre, DateTime date)
+        {
+            try
+            {   // Which movie to update?
+                var update_movie = _service.GetMovieById(id);
+                // Alright update the fields
+                update_movie.Title = title;
+                update_movie.ImageUrl = imageurl;
+                update_movie.Genre = genre;
+                update_movie.Date = date;
+                // Movie null?
+                if (update_movie == null)
+                {
+                    return RedirectToAction("Error", "Info");
+                }
+                // If not send it to Service to be updated
+                _service.UpdateMovie(update_movie);
+                // Return View of the movie
+                return RedirectToAction("Admin", new { SuccessMessage = "Movie is successfully updated." });
+            }
+            catch (NotFoundException ex)
+            {
+                return RedirectToAction("Admin", new { ErrorMessage = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Info");
+            }
+        }
 
         // DETAIL MOVIE
         public IActionResult Detail(int id)
         {
-            // Get Movie by ID
-            var select_movie = _service.GetMovieById(id);
-            // If movie doesnt exists
-            if (select_movie == null)
+            try
             {
-                return RedirectToAction("Error", "Info");
+                // Get Movie by ID
+                var select_movie = _service.GetMovieById(id);
+                // If movie doesnt exists
+                if (select_movie == null)
+                {
+                    return RedirectToAction("Error", "Info");
+                }
+
+                return View(select_movie);
+
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Error", "Info", new { ErrorMessage = ex.Message });
             }
 
-            return View(select_movie);
         }
 
         // ADMIN TABLE
