@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using MyMovies.Services;
 using MyMovies.Services.Interfaces;
-using MyMovies.Models;
+using MyMovies.ViewModels;
+using MyMovies.Mappings;
 using MyMovies.Common.Exceptions;
 
 namespace MyMovies.Controllers
@@ -23,7 +24,10 @@ namespace MyMovies.Controllers
         public IActionResult Index(string title)
         {
             var movies = _service.GetMovieByTitle(title);
-            return View(movies);
+
+            var movieIndexModels = movies.Select(x => x.ToIndexModel()).ToList();
+
+            return View(movieIndexModels);
         }
 
         // CREATE MOVIE 
@@ -34,11 +38,12 @@ namespace MyMovies.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Movie movie)
+        public IActionResult Create(MovieCreateModel movie)
         {
             if (ModelState.IsValid)
             {
-                _service.CreateMovie(movie);
+                var domainModel = movie.ToModel();
+                _service.CreateMovie(domainModel);
                 return RedirectToAction("Index", new { SuccessMessage = "Movie is successfully created." });
             }
             return View(movie);
@@ -72,7 +77,7 @@ namespace MyMovies.Controllers
                 {
                     return RedirectToAction("Error", "Info");
                 }
-                return View(update_movie);
+                return View(update_movie.ToUpdateModel());
             }
             catch (NotFoundException ex)
             {
@@ -87,34 +92,28 @@ namespace MyMovies.Controllers
         // UPDATE MOVIE - EDIT the Movie
         [HttpPost]
 
-        public IActionResult Update(int id, string title, string imageurl, string genre, DateTime date)
+        public IActionResult Update(MovieUpdateModel movie)
         {
-            try
-            {   // Which movie to update?
-                var update_movie = _service.GetMovieById(id);
-                // Alright update the fields
-                update_movie.Title = title;
-                update_movie.ImageUrl = imageurl;
-                update_movie.Genre = genre;
-                update_movie.Date = date;
-                // Movie null?
-                if (update_movie == null)
+            if (ModelState.IsValid)
+            {
+                try
+                {
+
+                    _service.UpdateMovie(movie.ToModel());
+                    // Return View of the movie
+                    return RedirectToAction("Admin", new { SuccessMessage = $"Movie {movie.Title} is successfully updated." });
+                }
+                catch (NotFoundException ex)
+                {
+                    return RedirectToAction("Admin", new { ErrorMessage = ex.Message });
+                }
+                catch (Exception ex)
                 {
                     return RedirectToAction("Error", "Info");
                 }
-                // If not send it to Service to be updated
-                _service.UpdateMovie(update_movie);
-                // Return View of the movie
-                return RedirectToAction("Admin", new { SuccessMessage = "Movie is successfully updated." });
+
             }
-            catch (NotFoundException ex)
-            {
-                return RedirectToAction("Admin", new { ErrorMessage = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return RedirectToAction("Error", "Info");
-            }
+            return View(movie);
         }
 
         // DETAIL MOVIE
@@ -122,15 +121,14 @@ namespace MyMovies.Controllers
         {
             try
             {
-                // Get Movie by ID
                 var select_movie = _service.GetMovieById(id);
-                // If movie doesnt exists
+
                 if (select_movie == null)
                 {
                     return RedirectToAction("Error", "Info");
                 }
 
-                return View(select_movie);
+                return View(select_movie.ToDetailModel());
 
             }
             catch(Exception ex)
@@ -146,7 +144,10 @@ namespace MyMovies.Controllers
             ViewBag.ErrorMessage = errorMessage;
             ViewBag.SuccessMessage = successMessage;
             var all_movies = _service.GetAllMovies();
-            return View(all_movies);
+
+            var viewModels = all_movies.Select(x => x.ToAdminModel()).ToList();
+
+            return View(viewModels);
         }
 
 

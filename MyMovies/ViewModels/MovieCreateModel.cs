@@ -1,18 +1,16 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MyMovies.Models
+namespace MyMovies.ViewModels
 {
-    public class Movie
+    public class MovieCreateModel
     {
-        [Key]//Not neccessary
-        public int Id { get; set; }
 
         [Required]
-        [StringLength(maximumLength:50,MinimumLength = 3)]
+        [StringLength(maximumLength: 50, MinimumLength = 3)]
         public string Title { get; set; }
 
-        [Required(ErrorMessage ="Enter valid image url")]
+        [Required(ErrorMessage = "Enter valid image url")]
         public string ImageUrl { get; set; }
 
         [Required]
@@ -22,8 +20,5 @@ namespace MyMovies.Models
         [StringLength(maximumLength: 20, MinimumLength = 4)]
         public string Genre { get; set; }
 
-        [Required]
-        public DateTime Date { get; set; }
-        public DateTime? DateModified { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model List<MyMovies.Models.Movie>
+﻿@model List<MyMovies.ViewModels.MovieAdminModel>
 
 @{
     ViewBag.Title = "Admin Panel";
@@ -19,7 +19,8 @@ else
                 <th>Title</th>
                 <th>Image</th>
                 <th>Genre</th>
-                <th>Date</th>
+                <th>Created</th>
+                <th>Modified</th>
                 <th>Read</th>
                 <th>Update</th>
                 <th>Delete</th>
@@ -29,17 +30,24 @@ else
         <tbody>
             @foreach (var movie in @Model)
             {
-                <tr>
-                    <td>@movie.Id</td>
-                    <td>@movie.Title</td>
-                    <td><img src="@movie.ImageUrl" style="width:45px;height:45px;border-radius:3px;object-fit:cover;" /></td>
-                    <td>@movie.Genre</td>
-                    <td>@movie.Date</td>
-                    <th><a href="/Home/Detail/@movie.Id" class="read">View</a></th>
-                    <th><a asp-action="Update" asp-route-id="@movie.Id" class="update">Update</a></th>
-                    <th><a href="/Home/Delete/@movie.Id" class="delete">Delete</a></th>
-
-                </tr>
+            <tr>
+                <td>@movie.Id</td>
+                <td>@movie.Title</td>
+                <td><img src="@movie.ImageUrl" style="width:45px;height:45px;border-radius:3px;object-fit:cover;" /></td>
+                <td>@movie.Genre</td>
+                <td>@movie.Date</td>
+                @if (movie.DateModified != null)
+                {
+                    <td>@movie.DateModified</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                <td><a href="/Home/Detail/@movie.Id" class="read">View</a></td>
+                <td><a asp-action="Update" asp-route-id="@movie.Id" class="update">Update</a></td>
+                <td><a href="/Home/Delete/@movie.Id" class="delete" onclick="return confirm('Are you sure?')">Delete</a></td>
+            </tr>
             }
         </tbody>
     </table>

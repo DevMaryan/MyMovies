@@ -1,6 +1,6 @@
 ﻿@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
 
-@model MyMovies.Models.Movie;
+@model MyMovies.ViewModels.MovieUpdateModel;
 @{
     ViewBag.Title = "Create Movie";
 }
@@ -14,10 +14,7 @@
         <textarea type="text" asp-for="Description" class='input-control' required></textarea>
         <label for='genre' class="title-control">Movie Genre</label>
         <input type="text" asp-for="Genre" class='input-control' required>
-        <label for='date' class="title-control">Movie Date</label>
-        <input type="date" asp-for="Date" class='input-control' required>
-        <span asp-validation-for="Date"></span>
         <br>
-        <button type="submit" value="Save" class="btn my">Update</button>
+        <button type="submit" value="Update" class="btn my">Update</button>
     </form>
 </div>

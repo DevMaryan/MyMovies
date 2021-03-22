@@ -32,6 +32,7 @@ namespace MyMovies.Services
         // Service -> Repository -> Interface -> Create Movie
         public void CreateMovie(Movie movie)
         {
+            movie.Date = DateTime.Now;
             _movieRepository.CreateMovie(movie);
         }
 
@@ -64,7 +65,20 @@ namespace MyMovies.Services
         // Service -> Repository -> Update Movie
         public void UpdateMovie(Movie movie)
         {
-            _movieRepository.UpdateMovie(movie);
+            var updatedMovie = _movieRepository.GetMovieById(movie.Id);
+            if (updatedMovie != null)
+            {
+                updatedMovie.Title = movie.Title;
+                updatedMovie.ImageUrl = movie.ImageUrl;
+                updatedMovie.Description = movie.Description;
+                updatedMovie.Genre = movie.Genre;
+                updatedMovie.DateModified = DateTime.Now;
+                _movieRepository.UpdateMovie(updatedMovie);
+            }
+            else
+            {
+                throw new NotFoundException($"The movie with id {movie.Id} was not found");
+            }
         }
     }
 }
