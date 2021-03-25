@@ -8,6 +8,7 @@ using MyMovies.Services.Interfaces;
 using MyMovies.ViewModels;
 using MyMovies.Mappings;
 using MyMovies.Common.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyMovies.Controllers
 {
@@ -32,22 +33,32 @@ namespace MyMovies.Controllers
         }
 
         // CREATE MOVIE 
+        [Authorize]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
-        }
 
+        }
+        [Authorize]
         [HttpPost]
         public IActionResult Create(MovieCreateModel movie)
         {
-            if (ModelState.IsValid)
+            if (User.Identity.IsAuthenticated)
             {
-                var domainModel = movie.ToModel();
-                _service.CreateMovie(domainModel);
-                return RedirectToAction("Index", new { SuccessMessage = "Movie is successfully created." });
+                if (ModelState.IsValid)
+                {
+                    var domainModel = movie.ToModel();
+                    _service.CreateMovie(domainModel);
+                    return RedirectToAction("Index", new { SuccessMessage = "Movie is successfully created." });
+                }
+                return View(movie);
             }
-            return View(movie);
+            else
+            {
+                return RedirectToAction("Index","Home");
+            }
+
         }
         // DELETE MOVIE
         public IActionResult Delete(int id)
@@ -139,6 +150,7 @@ namespace MyMovies.Controllers
         }
 
         // ADMIN TABLE
+        [Authorize]
         public IActionResult Admin(string errorMessage, string successMessage)
         {
             ViewBag.ErrorMessage = errorMessage;

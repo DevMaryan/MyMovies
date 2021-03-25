@@ -3,54 +3,58 @@
 @{
     ViewBag.Title = "Admin Panel";
 }
-
-@if (Model.Count() == 0)
+@if (User.Identity.IsAuthenticated)
 {
-    <p>No Data</p>
-}
-else
-{
-<div id="container">
+    @if (Model.Count() == 0)
+    {
+        <p>No Data</p>
+    }
+    else
+    {
+        <div id="container">
 
-    <table class="tbl" border="0" cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Image</th>
-                <th>Genre</th>
-                <th>Created</th>
-                <th>Modified</th>
-                <th>Read</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-        </thead>
+            <table class="tbl" border="0" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>Genre</th>
+                        <th>Created</th>
+                        <th>Modified</th>
+                        <th>Read</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
 
-        <tbody>
-            @foreach (var movie in @Model)
-            {
-            <tr>
-                <td>@movie.Id</td>
-                <td>@movie.Title</td>
-                <td><img src="@movie.ImageUrl" style="width:45px;height:45px;border-radius:3px;object-fit:cover;" /></td>
-                <td>@movie.Genre</td>
-                <td>@movie.Date</td>
-                @if (movie.DateModified != null)
-                {
-                    <td>@movie.DateModified</td>
-                    }
-                    else
+                <tbody>
+                    @foreach (var movie in @Model)
                     {
-                        <td>-</td>
+                        <tr>
+                            <td>@movie.Id</td>
+                            <td>@movie.Title</td>
+                            <td><img src="@movie.ImageUrl" style="width:45px;height:45px;border-radius:3px;object-fit:cover;" /></td>
+                            <td>@movie.Genre</td>
+                            <td>@movie.Date</td>
+                            @if (movie.DateModified != null)
+                            {
+                                <td>@movie.DateModified</td>
+                            }
+                            else
+                            {
+                                <td>-</td>
+                            }
+                            <td><a href="/Home/Detail/@movie.Id" class="read">View</a></td>
+                            <td><a asp-action="Update" asp-route-id="@movie.Id" class="update">Update</a></td>
+                            <td><a href="/Home/Delete/@movie.Id" class="delete" onclick="return confirm('Are you sure?')">Delete</a></td>
+                        </tr>
                     }
-                <td><a href="/Home/Detail/@movie.Id" class="read">View</a></td>
-                <td><a asp-action="Update" asp-route-id="@movie.Id" class="update">Update</a></td>
-                <td><a href="/Home/Delete/@movie.Id" class="delete" onclick="return confirm('Are you sure?')">Delete</a></td>
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                </tbody>
+            </table>
+        </div>
+
+    }
+
 
 }

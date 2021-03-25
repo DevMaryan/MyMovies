@@ -31,8 +31,8 @@ namespace MyMovies
         {
             services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = MyMovies; Trusted_Connection = True"));
 
-
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=> { options.LoginPath = "/Auth/SignIn"; options.LogoutPath = "/Auth/SignOut"; });
 
 
             services.AddControllersWithViews();
