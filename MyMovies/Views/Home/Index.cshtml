@@ -6,14 +6,7 @@
     ViewBag.Title = "Home";
 }
 
-@if (ViewBag.ErrorMessage != null)
-{
-    <div>@ViewBag.ErrorMessage</div>
-}
-@if (ViewBag.SuccessMessage != null)
-{
-    <div>@ViewBag.SuccessMessage</div>
-}
+
 <div id="container2">
     @if (Model.Count() == 0)
     {
@@ -37,8 +30,5 @@
         }
 
     }
-
-
-
 
 </div>

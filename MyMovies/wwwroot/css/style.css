@@ -322,3 +322,53 @@ a{
     margin-left:5px;
     cursor:pointer;
 }
+
+#container_sign_in {
+    padding: 1.2rem;
+    width: 1000px;
+    margin: 0 auto;
+    background-color: var(--bg2-background-color);
+    color: #666;
+    height: 80vh;
+}
+#sign_in_form{
+    width:300px;
+    margin:0 auto;
+}
+.form-control-signin {
+    padding: 0.3rem 0.8rem;
+    border: 1px solid #f2f2f2;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    width: 100%;
+    outline: none;
+    height: 30px;
+}
+.btn-sign-in {
+    margin-top:10px;
+    border: 0;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    background-color: #e50914;
+    color: #FFF;
+    width: 325px;
+}
+.btn-sign-in:hover{
+    background-color: #ce010b;
+}
+.p-sign-in{
+    text-align:center;
+    font-family:Helvetica;
+}
+.already_logged_in {
+    padding: 1.2rem;
+    width: 1000px;
+    margin: 0 auto;
+    background-color: var(--bg2-background-color);
+    color: #666;
+    height: 80vh;
+    text-align:center;
+
+}

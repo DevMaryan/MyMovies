@@ -21,8 +21,9 @@ namespace MyMovies.Controllers
             _service = service;
         }
         // Index PAGE
-        public IActionResult Index(string title)
+        public IActionResult Index(string title, string successMessage)
         {
+            ViewBag.SuccessMessage = successMessage;
             var movies = _service.GetMovieByTitle(title);
 
             var movieIndexModels = movies.Select(x => x.ToIndexModel()).ToList();
@@ -98,7 +99,6 @@ namespace MyMovies.Controllers
             {
                 try
                 {
-
                     _service.UpdateMovie(movie.ToModel());
                     // Return View of the movie
                     return RedirectToAction("Admin", new { SuccessMessage = $"Movie {movie.Title} is successfully updated." });

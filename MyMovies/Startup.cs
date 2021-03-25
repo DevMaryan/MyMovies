@@ -13,6 +13,7 @@ using MyMovies.Repositories.Interfaces;
 using MyMovies.Services;
 using MyMovies.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace MyMovies
 {
@@ -29,9 +30,21 @@ namespace MyMovies
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = MyMovies; Trusted_Connection = True"));
+
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+
+
             services.AddControllersWithViews();
+
+            // Register Services
             services.AddTransient<IMoviesService, MoviesService>();
+            services.AddTransient<IAuthService, AuthService>();
+
+
+            // Register Repositories
             services.AddTransient<IMoviesRepository, MoviesRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
             // Register the Interfaces for Services & Repository
             //services.AddTransient<IMoviesRepository, MoviesFileRepository>();
@@ -57,6 +70,8 @@ namespace MyMovies
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication(); // Add this, it is required.
 
             app.UseAuthorization();
 

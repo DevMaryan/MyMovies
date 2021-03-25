@@ -1,0 +1,22 @@
+﻿
+@model MyMovies.ViewModels.SignInModel;
+@{
+    ViewBag.Title = "Sign In View";
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p class="already_logged_in">You are already logged in @User.FindFirst("Username").Value</p>
+}
+else
+{
+<div id="container_sign_in">
+    <p class="p-sign-in">Sign in into your account</p>
+    <form asp-controller="Auth" asp-action="SignIn" method="POST" id="sign_in_form">
+        <input type="text" asp-for="Username" class="form-control-signin" placeholder="username" required />
+        <input type="password" asp-for="Password" class="form-control-signin" placeholder="password" required />
+        <input type="submit" value="Sign In" class="btn-sign-in"/>
+    </form>
+</div>
+}
