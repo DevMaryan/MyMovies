@@ -8,8 +8,8 @@ N-Tier Architecture with (DI) Dipendency Injection pattern:
     <li>Models</li>
     <li>Common</li>
 </ul>
-Front-End tecnology: HTML, CSS, JavaScript
-Back-End: C# .Net Core
+<p>Front-End tecnology: HTML, CSS, JavaScript</p>
+<p>Back-End: C# .Net Core</p>
 
 <img src="https://i.ibb.co/9ZCqgcv/ss.png" alt="ss" border="0">
 <img src="https://i.ibb.co/RYzTfFY/admn.png" alt="admn" border="0">
