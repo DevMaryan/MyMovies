@@ -12,5 +12,7 @@ N-Tier Architecture with (DI) Dipendency Injection pattern:
 <p>Back-End: C# .Net Core</p>
 
 <img src="https://i.ibb.co/9ZCqgcv/ss.png" alt="ss" border="0">
-<img src="https://i.ibb.co/RYzTfFY/admn.png" alt="admn" border="0">
+<img src="https://i.ibb.co/ww3GRSM/ss1.png" alt="ss1" border="0">
+<img src="https://i.ibb.co/rG87QX8/ss2.png" alt="ss2" border="0">
+<img src="https://i.ibb.co/5cKgY2c/ss3.png" alt="ss3" border="0">
 <img src="https://i.ibb.co/YX8j1yY/home-pg.png" alt="home-pg" border="0">
