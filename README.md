@@ -2,7 +2,7 @@
 
 N-Tier Architecture with (DI) Dipendency Injection pattern:
 <ul>
-    <li>MyBlog</li>
+    <li>MyMovies</li>
     <li>Services</li>
     <li>Repositories</li>
     <li>Models</li>
