@@ -24,7 +24,16 @@ namespace MyMovies.Mappings
                 Title = viewModel.Title,
                 ImageUrl = viewModel.ImageUrl,
                 Description = viewModel.Description,
-                Genre = viewModel.Genre
+                Genre = viewModel.Genre,
+            };
+        }
+        public static User ToModel(this UserUpdateModel viewModel)
+        {
+            return new User
+            {
+                Id = viewModel.Id,
+                Address = viewModel.Address,
+                Email = viewModel.Email,
             };
         }
     }

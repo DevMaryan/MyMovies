@@ -1,0 +1,38 @@
+﻿@model MyMovies.ViewModels.UserDetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+
+<div id="container_details_view">
+    <h1>User account</h1>
+
+    <div>
+        <table>
+            <thead style="background-color:#000 !important;">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Id</td>
+                    <td>@Model.Username</td>
+                    <td>@Model.Address</td>
+                    <td>@Model.Email</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div>
+        <br />
+        <a asp-controller="Users" asp-action="Update" asp-route-id="@Model.Id" class="update">Update</a>
+    </div>
+</div>

@@ -32,7 +32,11 @@ namespace MyMovies
             services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = MyMovies; Trusted_Connection = True"));
 
             
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=> { options.LoginPath = "/Auth/SignIn"; options.LogoutPath = "/Auth/SignOut"; });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=> {
+                options.ExpireTimeSpan = TimeSpan.FromSeconds(15);
+                options.LoginPath = "/Auth/SignIn"; 
+                options.LogoutPath = "/Auth/SignOut";
+            });
 
 
             services.AddControllersWithViews();
@@ -40,11 +44,11 @@ namespace MyMovies
             // Register Services
             services.AddTransient<IMoviesService, MoviesService>();
             services.AddTransient<IAuthService, AuthService>();
-
+            services.AddTransient<IUsersService, UserService>();
 
             // Register Repositories
             services.AddTransient<IMoviesRepository, MoviesRepository>();
-            services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IUsersRepository, UserRepository>();
 
             // Register the Interfaces for Services & Repository
             //services.AddTransient<IMoviesRepository, MoviesFileRepository>();
@@ -62,7 +66,7 @@ namespace MyMovies
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Info/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

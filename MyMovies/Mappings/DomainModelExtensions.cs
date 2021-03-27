@@ -55,5 +55,26 @@ namespace MyMovies.Mappings
                 Genre = movie.Genre,
             };
         }
+        public static UserDetailsModel ToDetailsModel(this User user)
+        {
+            return new UserDetailsModel()
+            {
+                Id = user.Id,
+                Address = user.Address,
+                Email = user.Email,
+                Username = user.Username,
+            };
+        }
+        public static UserUpdateModel ToUpdateModel(this User user)
+        {
+            return new UserUpdateModel()
+            {
+                Id = user.Id,
+                Address = user.Address,
+                Email = user.Email,
+            };
+        }
+
+
     }
 }

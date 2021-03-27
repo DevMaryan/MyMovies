@@ -14,14 +14,14 @@ namespace MyMovies.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUsersRepository _userRepository;
 
-        public AuthService(IUserRepository userRepository)
+        public AuthService(IUsersRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public bool SignIn(string username, string password, HttpContext httpContext)
+        public bool SignIn(string username, string password,bool IsPersistent, HttpContext httpContext)
         {
 
             var response = false;
@@ -39,6 +39,7 @@ namespace MyMovies.Services
 
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
+                var authProps = new AuthenticationProperties() { IsPersistent = IsPersistent };
 
                 Task.Run(() => httpContext.SignInAsync(principal)).GetAwaiter().GetResult();
                 response = true;
@@ -48,6 +49,11 @@ namespace MyMovies.Services
                 response = false;
             }
             return response;
+        }
+
+        public void SignOut(HttpContext httpContext)
+        {
+            Task.Run(() => httpContext.SignOutAsync()).GetAwaiter().GetResult();
         }
 
     }

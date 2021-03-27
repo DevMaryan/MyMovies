@@ -61,6 +61,7 @@ namespace MyMovies.Controllers
 
         }
         // DELETE MOVIE
+        [Authorize]
         public IActionResult Delete(int id)
         {
             try
@@ -78,6 +79,7 @@ namespace MyMovies.Controllers
             }
         }
         // UPDATE MOVIE - Just Show the Movie
+        [Authorize]
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -102,6 +104,7 @@ namespace MyMovies.Controllers
         }
 
         // UPDATE MOVIE - EDIT the Movie
+        [Authorize]
         [HttpPost]
 
         public IActionResult Update(MovieUpdateModel movie)

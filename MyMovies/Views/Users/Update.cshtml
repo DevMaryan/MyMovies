@@ -1,0 +1,24 @@
+﻿@model MyMovies.ViewModels.UserUpdateModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<div id="container_details_view">
+    <div class="col-md-4">
+        <form asp-controller="Users" asp-action="Update" method="POST" id="sign_in_form">
+
+            <label asp-for="Address" class="control-label"></label>
+            <input asp-for="Address" class="input-control" />
+            <br />
+            <br />
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="input-control" />
+            <div class="form-group">
+                <br />
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+</div>
