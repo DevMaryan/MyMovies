@@ -11,5 +11,13 @@ namespace MyMovies.Repositories.Interfaces
 
         User GetById(int userId);
         void UpdateUser(User user);
+        bool CheckIfExists(string username, string email);
+        void Add(User newUser);
+        void Delete(User user);
+
+        List<User> GetAll();
+
+
+        void SetIsAdmin(User user);
     }
 }

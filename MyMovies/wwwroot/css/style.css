@@ -411,3 +411,10 @@ a{
     color: #666;
     height: 80vh;
 }
+.container-access-denied{
+    margin: 0 auto;
+    width:300px;
+    color:red;
+    margin-top:100px;
+    height:70vh;
+}

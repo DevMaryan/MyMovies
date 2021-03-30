@@ -33,14 +33,14 @@ namespace MyMovies.Controllers
         }
 
         // CREATE MOVIE 
-        [Authorize]
+        [Authorize(Policy = "IsAdmin")]
         [HttpGet]
         public IActionResult Create()
         {
             return View();
 
         }
-        [Authorize]
+        [Authorize(Policy = "IsAdmin")]
         [HttpPost]
         public IActionResult Create(MovieCreateModel movie)
         {
@@ -61,7 +61,7 @@ namespace MyMovies.Controllers
 
         }
         // DELETE MOVIE
-        [Authorize]
+        [Authorize(Policy = "IsAdmin")]
         public IActionResult Delete(int id)
         {
             try
@@ -79,7 +79,7 @@ namespace MyMovies.Controllers
             }
         }
         // UPDATE MOVIE - Just Show the Movie
-        [Authorize]
+        [Authorize(Policy = "IsAdmin")]
         [HttpGet]
         public IActionResult Update(int id)
         {
@@ -104,7 +104,7 @@ namespace MyMovies.Controllers
         }
 
         // UPDATE MOVIE - EDIT the Movie
-        [Authorize]
+        [Authorize(Policy = "IsAdmin")]
         [HttpPost]
 
         public IActionResult Update(MovieUpdateModel movie)
@@ -153,7 +153,7 @@ namespace MyMovies.Controllers
         }
 
         // ADMIN TABLE
-        [Authorize]
+        [Authorize(Policy = "IsAdmin")]
         public IActionResult Admin(string errorMessage, string successMessage)
         {
             ViewBag.ErrorMessage = errorMessage;

@@ -33,11 +33,19 @@ namespace MyMovies
 
             
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=> {
-                options.ExpireTimeSpan = TimeSpan.FromSeconds(15);
+                options.ExpireTimeSpan = TimeSpan.FromDays(15);
                 options.LoginPath = "/Auth/SignIn"; 
                 options.LogoutPath = "/Auth/SignOut";
+                options.AccessDeniedPath= "/Auth/AccessDenied";
             });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsAdmin", policy =>
+                {
+                    policy.RequireClaim("IsAdmin", "True");
+                });
+            });
 
             services.AddControllersWithViews();
 

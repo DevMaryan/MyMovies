@@ -16,6 +16,18 @@ namespace MyMovies.Repositories
             _context = context;
         }
 
+        public void Add(User newUser)
+        {
+            _context.Users.Add(newUser);
+            _context.SaveChanges();
+        }
+
+        public bool CheckIfExists(string username, string email)
+        {
+            return _context.Users.Any(x => x.Username == username || x.Email == email);
+
+        }
+
         public User GetById(int userId)
         {
             return _context.Users.FirstOrDefault(x => x.Id == userId);
@@ -31,6 +43,25 @@ namespace MyMovies.Repositories
              _context.Users.Update(user);
              _context.SaveChanges();
           
+        }
+
+        public void Delete(User user)
+        {
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+        }
+
+        public List<User> GetAll()
+        {
+            var users = _context.Users.ToList();
+            return users;
+        }
+
+
+        public void SetIsAdmin(User user)
+        {
+            _context.Users.Update(user);
+            _context.SaveChanges();
         }
     }
 }

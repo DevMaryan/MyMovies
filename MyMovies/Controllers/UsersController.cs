@@ -70,6 +70,49 @@ namespace MyMovies.Controllers
             return View(user_id);
         }
 
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _usersService.DeleteUser(id);
+                return RedirectToAction("Admin", new { SuccessMessage = "User deleted." });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Info", "Error");
+            }
+        }
+
+        public IActionResult Admin()
+        {
+            var all_users = _usersService.GetAllUsers();
+
+            var viewModels = all_users.Select(x => x.ToAdminModel()).ToList();
+
+
+            return View(viewModels);
+        }
+        [HttpGet]
+        public IActionResult IsAdmin()
+        {
+            return RedirectToAction("Admin", "Users");
+        }
+        [HttpPost]
+        public IActionResult IsAdmin(UserAdminModel user)
+        {
+
+                try
+                {
+                    _usersService.IsAdmin(user.ToModel());
+                    return RedirectToAction("Admin", "Users");
+
+                }
+                catch (Exception)
+                {
+                    return RedirectToAction("Error", "Info");
+                }
+
+        }
 
     }
 }

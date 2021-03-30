@@ -72,6 +72,19 @@ namespace MyMovies.Mappings
                 Id = user.Id,
                 Address = user.Address,
                 Email = user.Email,
+                IsAdmin = user.IsAdmin,
+            };
+        }
+        public static UserAdminModel ToAdminModel(this User user)
+        {
+            return new UserAdminModel()
+            {
+                Id = user.Id,
+                Address = user.Address,
+                Email = user.Email,
+                Username = user.Username,
+                IsAdmin = user.IsAdmin,
+                DateCreated = user.DateCreated,
             };
         }
 

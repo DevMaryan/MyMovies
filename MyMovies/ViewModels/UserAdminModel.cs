@@ -1,14 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿
+
+using System;
 
 namespace MyMovies.ViewModels
 {
-    public class UserUpdateModel
+    public class UserAdminModel
     {
         public int Id { get; set; }
-        [Required]
+        public string Username { get; set; }
+
         public string Address { get; set; }
-        [Required]
+
         public string Email { get; set; }
+
         public bool IsAdmin { get; set; }
+        public DateTime DateCreated { get; set; }
     }
+
 }

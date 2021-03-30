@@ -1,4 +1,4 @@
-﻿
+﻿@model MyMovies.ViewModels.SignUpModel;
 @{
     ViewBag.Title = "Sign Up View";
 }
@@ -12,12 +12,17 @@ else
 {
 <div id="container_sign_in">
     <p class="p-sign-in">Sign Up for free!</p>
-    <form  method="POST" id="sign_in_form">
-        <input type="text"  class="form-control-signup" placeholder="username" required />
-        <input type="password"  class="form-control-signup" placeholder="password" required />
-        <input type="password"  class="form-control-signup" placeholder="password" required />
-        <input type="text"  class="form-control-signup" placeholder="address" required />
-        <input type="email"  class="form-control-signup" placeholder="email" required />
+    <form asp-controller="Auth" asp-action="SignUp" method="POST" id="sign_in_form">
+        <input type="text" asp-for="Username" class="form-control-signup" placeholder="username" required />
+        <span asp-validation-for="Username" class="text-danger"></span>
+        <input type="password" asp-for="Password" class="form-control-signup" placeholder="password" required />
+        <span asp-validation-for="Password" class="text-danger"></span>
+        <input type="password" asp-for="ConfirmPassword" class="form-control-signup" placeholder="password" required />
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        <input type="text" asp-for="Address" class="form-control-signup" placeholder="address" required />
+        <span asp-validation-for="Address" class="text-danger"></span>
+        <input type="email" asp-for="Email" class="form-control-signup" placeholder="email" required />
+        <span asp-validation-for="Email" class="text-danger"></span>
         <input type="submit" value="Sign Up" class="btn-sign-up" />
     </form>
 </div>

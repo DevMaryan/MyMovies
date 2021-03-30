@@ -1,0 +1,58 @@
+﻿@model List<MyMovies.ViewModels.UserAdminModel>;
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    @if (Model.Count() == 0)
+    {
+        <p>No Data</p>
+    }
+    else
+    {
+        <div id="container">
+
+            <table class="tbl" border="0" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Address</th>
+                        <th>Email</th>
+                        <th>Created</th>
+                        <th>Admin</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var user in @Model)
+                    {
+
+                    <tr>
+                        <a asp-controller="Users" asp-action="Details" asp-route-id="@user.Id">
+                            <td>@user.Id</td>
+                            <td>@user.Username</td>
+                            <td>@user.Address</td>
+                            <td>@user.Email</td>
+                            <td>@user.DateCreated</td>
+                            <form asp-controller="Users" asp-action="IsAdmin" method="POST">
+                                @*<td><input type="checkbox" asp-for="IsAdmin" /></td>*@
+                                <input type="submit" value="Save" />
+                            </form>
+
+                            <td><a href="/Users/Update/@user.Id" class="delete">Update</a></td>
+                            <td><a href="/Users/Delete/@user.Id" class="delete" onclick="return confirm('Are you sure?')">Delete</a></td>
+                         </a>
+                    </tr>
+
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    }
+
+
+}

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyMovies.Mappings;
 using MyMovies.Services.Interfaces;
 using MyMovies.ViewModels;
 using System;
@@ -25,8 +26,9 @@ namespace MyMovies.Controllers
         }
 
         [HttpPost]
-        public IActionResult SignIn(SignInModel signInModel, string returnUrl)
+        public IActionResult SignIn(SignInModel signInModel, string returnUrl, string SuccessMessage)
         {
+            ViewBag.SuccessMessage = SuccessMessage;
 
             if (ModelState.IsValid)
             {
@@ -63,9 +65,42 @@ namespace MyMovies.Controllers
             _authService.SignOut(HttpContext);
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult SignUp()
+        [HttpGet]
+        public IActionResult SignUp(string SuccessMessage, string ErrorMessage )
+        {
+            ViewBag.SuccessMessage = SuccessMessage;
+            ViewBag.ErrorMessage = ErrorMessage;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult SignUp(SignUpModel signUpModel,string ErrorMessage,string SuccessMessage)
+        {
+            ViewBag.SuccessMessage = SuccessMessage;
+            ViewBag.ErrorMessage = ErrorMessage;
+
+            if (ModelState.IsValid)
+            {
+                var user = signUpModel.ToModel();
+                var response = _authService.SignUp(user);
+
+                if(response == true)
+                {
+                    return RedirectToAction("SignIn", new { SuccessMessage = $"User {signUpModel.Username} is registered." });
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "The username already exists! Choose another please.";
+                    return View(signUpModel);
+                }
+            }
+
+            return View(signUpModel);
+        }
+
+        public IActionResult AccessDenied()
         {
             return View();
         }
+
     }
 }

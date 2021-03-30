@@ -1,4 +1,5 @@
 ﻿using MyMovies.Models;
+using System.Collections.Generic;
 
 namespace MyMovies.Services.Interfaces
 {
@@ -8,5 +9,10 @@ namespace MyMovies.Services.Interfaces
         User GetDetails(int userId);
 
         void UpdateUser(User user);
+        void DeleteUser(int id);
+
+        List<User> GetAllUsers();
+
+        void IsAdmin(User user);
     }
 }
