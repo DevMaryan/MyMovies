@@ -93,9 +93,13 @@ namespace MyMovies.Controllers
         public IActionResult Admin(string successMessage)
         {
             ViewBag.SuccessMessage = successMessage;
+
+            var id = int.Parse(User.FindFirst("Id").Value);
+
+
             var all_users = _usersService.GetAllUsers();
 
-            var viewModels = all_users.Select(x => x.ToAdminModel()).ToList();
+            var viewModels = all_users.Where(x => x.Id != id).Select(x => x.ToAdminModel()).ToList();
 
 
             return View(viewModels);
