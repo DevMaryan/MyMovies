@@ -19,7 +19,8 @@
                         <th>Address</th>
                         <th>Email</th>
                         <th>Created</th>
-                        <th>Admin</th>
+                        <th>Is Admin?</th>
+                        <th>Admin Role</th>
                         <th>Update</th>
                         <th>Delete</th>
                     </tr>
@@ -36,14 +37,20 @@
                             <td>@user.Address</td>
                             <td>@user.Email</td>
                             <td>@user.DateCreated</td>
-                            <form asp-controller="Users" asp-action="IsAdmin" method="POST">
-                                @*<td><input type="checkbox" asp-for="IsAdmin" /></td>*@
-                                <input type="submit" value="Save" />
-                            </form>
+                            <td><input type="checkbox" asp-for="@user.IsAdmin" /></td>
+                            @if (user.IsAdmin)
+                            {
+                                <td><a asp-controller="Users"  asp-action="MakeAdmin" asp-route-id="@user.Id" class="btn-success" style="color:#333;">Remove <i class="fas fa-user-shield"></i></a></td>
+                            }
+                            else
+                            {
+                                <td><a asp-controller="Users"  asp-action="MakeAdmin" asp-route-id="@user.Id" class="btn-warning" style="color:#333;">Make <i class="fas fa-user-shield"></i></a></td>
+                            }
+
 
                             <td><a href="/Users/Update/@user.Id" class="delete">Update</a></td>
                             <td><a href="/Users/Delete/@user.Id" class="delete" onclick="return confirm('Are you sure?')">Delete</a></td>
-                         </a>
+                        </a>
                     </tr>
 
                     }

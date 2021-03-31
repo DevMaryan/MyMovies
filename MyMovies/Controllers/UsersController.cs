@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MyMovies.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "IsAdmin")]
     public class UsersController : Controller
     {
         private readonly IUsersService _usersService;
@@ -56,7 +56,14 @@ namespace MyMovies.Controllers
                 {
                     var the_user = _usersService.GetDetails(user_id.Id);
                     _usersService.UpdateUser(user_id.ToModel());
-                    return RedirectToAction("Details", new { SuccessMessage = "Your profile is updated."});
+                    if (Convert.ToBoolean(User.FindFirst("IsAdmin").Value))
+                    {
+                        return RedirectToAction("Admin", new { SuccessMessage = "The profile is updated." });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Details", new { SuccessMessage = "Your profile is updated." });
+                    }
                 }
                 catch (NotFoundException ex)
                 {
@@ -83,8 +90,9 @@ namespace MyMovies.Controllers
             }
         }
 
-        public IActionResult Admin()
+        public IActionResult Admin(string successMessage)
         {
+            ViewBag.SuccessMessage = successMessage;
             var all_users = _usersService.GetAllUsers();
 
             var viewModels = all_users.Select(x => x.ToAdminModel()).ToList();
@@ -92,27 +100,20 @@ namespace MyMovies.Controllers
 
             return View(viewModels);
         }
-        [HttpGet]
-        public IActionResult IsAdmin()
-        {
-            return RedirectToAction("Admin", "Users");
-        }
-        [HttpPost]
-        public IActionResult IsAdmin(UserAdminModel user)
-        {
 
-                try
-                {
-                    _usersService.IsAdmin(user.ToModel());
-                    return RedirectToAction("Admin", "Users");
-
-                }
-                catch (Exception)
-                {
-                    return RedirectToAction("Error", "Info");
-                }
+        // Make Admin Toggle
+        public IActionResult MakeAdmin(int id)
+        {
+            var selected_user = _usersService.ToggleAdminRole(id);
+            if(selected_user)
+            {
+                return RedirectToAction("Admin", new { SuccessMessage = $"User admin role is changed." });
+            }
+            else
+            {
+                return RedirectToAction("Admin", new { ErrorMessage = "User not found." });
+            }
 
         }
-
     }
 }

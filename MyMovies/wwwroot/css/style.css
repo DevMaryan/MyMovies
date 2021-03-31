@@ -29,7 +29,7 @@ body {
     margin:0 auto;
     background-color:var(--bg2-background-color);
     color:#666;
-    height:80vh;
+    margin-bottom:40px;
 }
 #container2{
     padding:1.2rem;
@@ -37,11 +37,11 @@ body {
     margin:0 auto;
     background-color:var(--bg2-background-color);
     color:#666;
-    height:80vh;
     display:flex;
     flex-direction: row;
     align-items:stretch;
     flex-wrap: wrap;
+    margin-bottom:3rem;
 }
 a{
     text-decoration: none;
@@ -129,6 +129,7 @@ tbody tr:nth-child(even){
     height:300px;
     position:relative;
     margin:10px;
+    margin-bottom:35px;
 }
 .card-title{
     padding:10px 0px 10px 5px;

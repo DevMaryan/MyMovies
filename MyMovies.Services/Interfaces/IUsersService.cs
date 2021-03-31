@@ -14,5 +14,6 @@ namespace MyMovies.Services.Interfaces
         List<User> GetAllUsers();
 
         void IsAdmin(User user);
+        bool ToggleAdminRole(int id);
     }
 }

@@ -72,5 +72,22 @@ namespace MyMovies.Services
             }
 
         }
+
+        public bool ToggleAdminRole(int id)
+        {
+            var response = false;
+            var selected_user = _usersRepository.GetById(id);
+            if(selected_user != null)
+            {
+                selected_user.IsAdmin = !selected_user.IsAdmin;
+                _usersRepository.UpdateUser(selected_user);
+                response =  true;
+            }
+            else
+            {
+                response=false;
+            }
+            return response;
+        }
     }
 }
