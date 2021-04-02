@@ -50,7 +50,11 @@
         <div class="comment-div">
             <div class="comment-container"><p class="comment-user">@comment.Username <div class="separator"></div> <span class="comment-date">@comment.DateCreated</span></p></div>
             <p class="comment-message">@comment.Message</p>
-            <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id"><div class="comment-delete">&times;</div></a>
+            @if (User.FindFirst("Username").Value == comment.Username)
+            {
+                <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id"><div class="comment-delete">&times;</div></a>
+            }
+
         </div>
                 }
 

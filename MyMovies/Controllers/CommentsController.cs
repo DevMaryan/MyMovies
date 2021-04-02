@@ -34,8 +34,10 @@ namespace MyMovies.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
+            var user = int.Parse(User.FindFirst("id").Value);
             var comment = _commentsService.GetCommentId(id);
-            if(comment != null)
+            var the_user = comment.UserId;
+            if(comment != null && user == the_user)
             {
                 _commentsService.DeleteComment(comment);
                 return RedirectToAction("Detail", "Home", new { id = comment.MovieId });
