@@ -35,6 +35,7 @@ namespace MyMovies.Controllers
         public IActionResult Delete(int id)
         {
             var user = int.Parse(User.FindFirst("id").Value);
+
             var comment = _commentsService.GetCommentId(id);
             var the_user = comment.UserId;
             if(comment != null && user == the_user)
