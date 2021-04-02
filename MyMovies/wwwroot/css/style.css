@@ -77,7 +77,7 @@ a{
     transition:0.3s ease-in-out;
 }
 .btn2:hover{
-    opacity:0.9;
+    background-color:darkred;
 }
 #footer{
     margin:0 auto;
@@ -139,7 +139,8 @@ tbody tr:nth-child(even){
 .card:hover {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
     transition: 0.3s ease-in-out;
-    scale: 1.1;
+    transform:scale(1.1);
+    z-index:10;
 }
 
 .card-img{
@@ -163,7 +164,6 @@ tbody tr:nth-child(even){
     margin:0 auto;
     margin-top:20px;
     color:#666;
-    height:80vh;
     display:flex;
     flex-direction: row;
     align-items:stretch;
@@ -418,4 +418,89 @@ a{
     color:red;
     margin-top:100px;
     height:70vh;
+}
+.comments-form{
+}
+.comments-form textarea {
+    border: 1px solid #c8c8c8;
+    width: 98%;
+    border-radius:3px;
+    resize: none;
+    padding:5px 10px;
+    color:#333;
+    font-family:Helvetica;
+
+}
+.btn-add-comment{
+    border-radius:3px;
+    padding:0.5rem 1rem;
+    color:red;
+    border:1px solid red;
+    cursor:pointer;
+    margin:10px 0px;
+    width:160px;
+}
+.btn-add-comment:hover{
+    color:#FFF;
+    background-color:red;
+}
+.comment-div {
+    width: 98%;
+    padding: 5px;
+    margin: 5px;
+    background-color: #84848414;
+    color: #6c6c6c;
+    border-radius: 3px;
+    position:relative;
+}
+.comment-message{
+    text-indent:1rem;
+    padding:1rem;
+}
+
+.comment-user{
+    font-weight:bold;
+}
+.comment-date{
+    font-size:12px;
+}
+.separator {
+    margin-left:10px;
+    margin-right:10px;
+    width:15px;
+    height:1px;
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(51,51,51,1) 50%, rgba(255,255,255,0) 100%);
+}
+.comment-container{
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    background-color:#b8b8b8;
+    color:#666;
+    padding:5px;
+    width:240px;
+    border-radius:3px 12px 12px 3px;
+}
+.comment-delete{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:absolute;
+    top:0px;
+    right:0px;
+    width:15px;
+    height:15px;
+    border-radius:16px;
+    background-color:#000;
+    color:#FFF;
+    cursor:pointer;
+    opacity:0.3;
+    transition:0.3s ease-in-out;
+}
+.comment-delete:hover{
+    color:red;
+    opacity:1;
+    transform:scale(1.1);
 }

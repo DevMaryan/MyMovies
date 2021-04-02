@@ -2,6 +2,7 @@
 using MyMovies.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MyMovies.Mappings
 {
@@ -35,15 +36,26 @@ namespace MyMovies.Mappings
         {
             return new MovieDetailModel()
             {
+                Id = movie.Id,
                 Title = movie.Title,
                 ImageUrl = movie.ImageUrl,
                 Genre = movie.Genre,
                 Description = movie.Description,
                 Date = movie.Date,
                 DateModified = movie.DateModified,
+                Comments = movie.Comments.Select(x => x.ToCommentModel()).ToList()
             };
         }
-
+        public static MovieCommentModel ToCommentModel(this Comment comment)
+        {
+            return new MovieCommentModel
+            {
+                Id = comment.Id,
+                Message = comment.Message,
+                DateCreated = comment.DateCreated,
+                Username = comment.User.Username
+            };
+        }
         public static MovieUpdateModel ToUpdateModel(this Movie movie)
         {
             return new MovieUpdateModel()

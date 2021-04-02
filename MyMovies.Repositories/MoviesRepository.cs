@@ -1,4 +1,5 @@
-﻿using MyMovies.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using MyMovies.Models;
 using MyMovies.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace MyMovies.Repositories
         // Get Movie by ID
         public Movie GetMovieById(int id)
         {
-            return _context.Movies.FirstOrDefault(x => x.Id == id);
+            return _context.Movies.Include(x => x.Comments).ThenInclude(x => x.User).FirstOrDefault(x => x.Id == id);
         }
 
         // Search - Get by Title

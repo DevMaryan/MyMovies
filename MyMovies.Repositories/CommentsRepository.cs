@@ -21,26 +21,24 @@ namespace MyMovies.Repositories
             _context.SaveChanges();
         }
 
+        public List<Comment> GetCommentByUserId(int userId)
+        {
+            var comments = _context.Comments.Where(x => x.UserId == userId).ToList();
+            return comments;
+        }
+
         public void DeleteComment(Comment comment)
         {
             _context.Comments.Remove(comment);
             _context.SaveChanges();
         }
 
-        public List<Comment> GetAllComments()
-        {
-            return _context.Comments.ToList();
-        }
-
         public Comment GetCommentById(int id)
         {
             return _context.Comments.FirstOrDefault(x => x.Id == id);
+
         }
 
-        public void UpdateComment(Comment comment)
-        {
-            _context.Comments.Update(comment);
-            _context.SaveChanges();
-        }
+
     }
 }

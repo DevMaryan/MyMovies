@@ -53,10 +53,12 @@ namespace MyMovies
             services.AddTransient<IMoviesService, MoviesService>();
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUsersService, UserService>();
+            services.AddTransient<ICommentsService, CommentsService>();
 
             // Register Repositories
             services.AddTransient<IMoviesRepository, MoviesRepository>();
             services.AddTransient<IUsersRepository, UserRepository>();
+            services.AddTransient<ICommentsRepository, CommentsRepository>();
 
             // Register the Interfaces for Services & Repository
             //services.AddTransient<IMoviesRepository, MoviesFileRepository>();

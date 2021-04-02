@@ -30,8 +30,39 @@
                 {
                     <p></p>
                 }
-
             </div>
+
+            <!-- If the user is authenticated can post comment-->
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form asp-controller="Comments" asp-action="Add" method="POST" class="comments-form">
+                    <input type="text" name="movieId" value="@Model.Id" hidden />
+                    <textarea type="text" name="comment" cols="20" rows="5" required></textarea>
+
+                    <button type="submit" class="btn-add-comment">Add Comment</button>
+                </form>
+            }
+            @if (Model.Comments.Count() > 0)
+            {
+                <!-- Otheriwse show comments-->
+                @foreach (var comment in Model.Comments.OrderByDescending(x => x.DateCreated))
+                {   
+        <div class="comment-div">
+            <div class="comment-container"><p class="comment-user">@comment.Username <div class="separator"></div> <span class="comment-date">@comment.DateCreated</span></p></div>
+            <p class="comment-message">@comment.Message</p>
+            <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id"><div class="comment-delete">&times;</div></a>
+        </div>
+                }
+
+            }
+            else
+            {
+                <p>No Comments</p>
+            }
+
+
+
+
         </div>
         <br>
         <a asp-controller="Home" asp-action="Index" class="btn"><i class="fas fa-arrow-left"></i> Back</a>

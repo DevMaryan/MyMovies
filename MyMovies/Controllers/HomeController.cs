@@ -129,7 +129,7 @@ namespace MyMovies.Controllers
             }
             return View(movie);
         }
-
+     
         // DETAIL MOVIE
         public IActionResult Detail(int id)
         {
@@ -141,9 +141,8 @@ namespace MyMovies.Controllers
                 {
                     return RedirectToAction("Error", "Info");
                 }
-
-                return View(select_movie.ToDetailModel());
-
+                var viewModel = select_movie.ToDetailModel();
+                return View(viewModel);
             }
             catch(Exception ex)
             {
