@@ -27,7 +27,7 @@
         <div class="menu">
             @if (User.Identity.IsAuthenticated)
             {
-               <a asp-controller="Home" asp-action="Create" class="btn">Create</a>
+                <a asp-controller="Home" asp-action="Create" class="btn">Create</a>
             }
             <a asp-controller="Info" asp-action="About" class="btn">About</a>
             <a asp-controller="Info" asp-action="Contact" class="btn">Contact</a>
@@ -72,8 +72,9 @@
         }
 
     </div>
-    <script type ="text/javascript" src="~/js/messages.js"></script>
-    <script src ="~/lib/jquery/dist/jquery.js"></script>
-    <script src ="~/js/hidemessages.js"></script>
+    <script type="text/javascript" src="~/js/messages.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/hidemessages.js"></script>
+    <script src="~/js/site.js"></script>
 </body>
 </html>
