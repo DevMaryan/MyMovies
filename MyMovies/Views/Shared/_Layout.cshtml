@@ -27,8 +27,7 @@
         <div class="menu">
             @if (User.Identity.IsAuthenticated)
             {
-                <a asp-controller="Home" asp-action="Create" class="btn">Create</a>
-            }
+<a asp-controller="Home" asp-action="Create" class="btn">Create</a>            }
             <a asp-controller="Info" asp-action="About" class="btn">About</a>
             <a asp-controller="Info" asp-action="Contact" class="btn">Contact</a>
 
@@ -44,37 +43,34 @@
             @if (User.Identity.IsAuthenticated)
             {
 
-                @if (Convert.ToBoolean(User.FindFirst("IsAdmin").Value))
-                {
-                    <a asp-controller="Home" asp-action="Create" class="header-btn">Create</a>
+@if (Convert.ToBoolean(User.FindFirst("IsAdmin").Value))
+{
+<a asp-controller="Home" asp-action="Create" class="header-btn">Create</a>
                     <a asp-controller="Home" asp-action="Admin" class="header-btn">Admin</a>
-                    <a asp-controller="Users" asp-action="Admin" class="header-btn">Users</a>
-                }
+                                        <a asp-controller="Users" asp-action="Admin" class="header-btn">Users</a>                }
 
                 <a asp-controller="Auth" asp-action="SignIn" class="header-btn">@User.FindFirst("Username").Value</a>
-                <a asp-controller="Users" asp-action="Details" class="header-btn">Profile</a>
-                <a asp-controller="Auth" asp-action="SignOut" class="header-btn">Sign out</a>
-            }
-            else
-            {
-                <a asp-controller="Auth" asp-action="SignIn" class="header-btn">Sign in</a>
-                <a asp-controller="Auth" asp-action="SignUp" class="header-btn">Sign Up</a>
-            }
+                                <a asp-controller="Users" asp-action="Details" class="header-btn">Profile</a>
+                                                <a asp-controller="Auth" asp-action="SignOut" class="header-btn">Sign out</a> }
+                                                            else
+                                                            {
+                                                <a asp-controller="Auth" asp-action="SignIn" class="header-btn">Sign in</a>
+                                                                <a asp-controller="Auth" asp-action="SignUp" class="header-btn">Sign Up</a>            }
 
         </div><p>My Movies &copy; 2021 All Rights are reserved.</p>
         @if (ViewBag.SuccessMessage != null)
         {
-            <div id="msgbox" class="msgbox">@ViewBag.SuccessMessage<span id="msg_close">&times;</span></div>
-        }
+<div id="msgbox" class="msgbox">@ViewBag.SuccessMessage<span id="msg_close">&times;</span></div>}
         @if (ViewBag.ErrorMessage != null)
         {
-            <div id="msgbox" class="msgbox">@ViewBag.ErrorMessage<span id="msg_close">&times;</span></div>
-        }
+<div id="msgbox" class="msgbox">@ViewBag.ErrorMessage<span id="msg_close">&times;</span></div>}
 
     </div>
     <script type="text/javascript" src="~/js/messages.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/js/hidemessages.js"></script>
     <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

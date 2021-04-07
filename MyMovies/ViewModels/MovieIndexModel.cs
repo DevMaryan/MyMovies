@@ -11,5 +11,6 @@ namespace MyMovies.ViewModels
         public string ImageUrl { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
+        public int Views { get; set; }
     }
 }

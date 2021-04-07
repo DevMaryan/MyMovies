@@ -29,7 +29,7 @@ namespace MyMovies
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = MyMovies; Trusted_Connection = True"));
+            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = Movies; Trusted_Connection = True"));
 
             
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=> {
@@ -54,11 +54,15 @@ namespace MyMovies
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IUsersService, UserService>();
             services.AddTransient<ICommentsService, CommentsService>();
+            services.AddTransient<IRatingsService, RatingsService>();
+            services.AddTransient<ILikesService, LikesService>();
 
             // Register Repositories
             services.AddTransient<IMoviesRepository, MoviesRepository>();
             services.AddTransient<IUsersRepository, UserRepository>();
             services.AddTransient<ICommentsRepository, CommentsRepository>();
+            services.AddTransient<IRatingsRepository, RatingsRepository>();
+            services.AddTransient<ILikeRepository, LikesRepository>();
 
             // Register the Interfaces for Services & Repository
             //services.AddTransient<IMoviesRepository, MoviesFileRepository>();

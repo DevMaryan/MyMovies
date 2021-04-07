@@ -12,6 +12,8 @@ namespace MyMovies.Services.Interfaces
 
         Movie GetMovieById(int id);
 
+        Movie GetMovieDetails(int id);
+
         void CreateMovie(Movie movie);
         void DeleteMovie(int id);
         void UpdateMovie(Movie movie);

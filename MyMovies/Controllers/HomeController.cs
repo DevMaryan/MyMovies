@@ -27,9 +27,14 @@ namespace MyMovies.Controllers
             ViewBag.SuccessMessage = successMessage;
             var movies = _service.GetMovieByTitle(title);
 
+            var IndexDataModel = new MovieIndexDataModel();
+
+                
             var movieIndexModels = movies.Select(x => x.ToIndexModel()).ToList();
 
-            return View(movieIndexModels);
+            IndexDataModel.IndexModels = movieIndexModels;
+
+            return View(IndexDataModel);
         }
 
         // CREATE MOVIE 
@@ -135,7 +140,7 @@ namespace MyMovies.Controllers
         {
             try
             {
-                var select_movie = _service.GetMovieById(id);
+                var select_movie = _service.GetMovieDetails(id);
 
                 if (select_movie == null)
                 {

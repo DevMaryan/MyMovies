@@ -9,10 +9,11 @@
             <div class="flx">
                 <img class="single-card-img" src="@Model.ImageUrl">
                 <div class="single-card-genre">
-                    <p class='single-card-title'><b></b>Title</p>
+                    <p class='single-card-title'><b>Title</b></p>
                     <h1>@Model.Title</h1>
                     <p><b>Genre</b></p>
                     <h1>@Model.Genre</h1>
+                    <h1><i class="far fa-eye"></i> @Model.Views</h1>
 
                 </div>
             </div>
@@ -24,62 +25,144 @@
                 <p style='font-size:12px;'>Created at @Model.Date</p>
                 @if (Model.DateModified != null)
                 {
-                    <p style='font-size:12px;'>Updated at @Model.DateModified</p>
-                }
+                    <p style='font-size:12px;'>Updated at @Model.DateModified</p> }
                 else
                 {
                     <p></p>
                 }
+
+                <br />
+                <!-- LIKE future - 1st attempt -->
+                <div>
+
+                    @*@if (Model.Likes.FirstOrDefault(x => x.Liked) && ((int.Parse(User.FindFirst("Id").Value) == (Model.Likes.FirstOrDefault(x => x.UserId)))))*@
+                    @if (Model.Likes.Count > 0)
+                    {
+                        @foreach (var like in Model.Likes)
+                        {
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @if (int.Parse(User.FindFirst("Id").Value) == like.UserId)
+                                {
+                                    <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+                                }
+                            }
+                        }
+                    }
+
+                </div>
+
+
+               @* 2nd-attempt
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (Model.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
+                    {
+                        <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+
+                    }
+                }*@
+
+
+                <div>
+                    <!-- If the user is authenticated can like movie  3rd-attempt-->
+                    @*@if (User.Identity.IsAuthenticated)
+            {
+                @if (Model.Likes.Any(x => x.UserId == int.Parse(User.FindFirst("Username").Value)))
+                {
+                    <a asp-controller="Likes" asp-action="Remove" asp-route-id="@Model.Id;"><div><i class="fas fa-heart fa-2x" style="color:red;"></i></div></a>
+                }
+                else
+                {
+                    <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.Id"><div><i class="far fa-heart fa-2x" style="color:red;"></i></div></a>
+                }
+            }*@
+
+                    <br />
+                </div>
+                <!-- Review Rating -->
+                <div>
+                    <span id="star_1" style="font-size:20px;cursor:pointer;"><i class='far fa-star'></i></span>
+                    <span id="star_2" style="font-size:20px;cursor:pointer;"><i class='far fa-star'></i></span>
+                    <span id="star_3" style="font-size:20px;cursor:pointer;"><i class='far fa-star'></i></span>
+                    <span id="star_4" style="font-size:20px;cursor:pointer;"><i class='far fa-star'></i></span>
+                    <span id="star_5" style="font-size:20px;cursor:pointer;"><i class='far fa-star'></i></span>
+                </div>
+
+                <form asp-controller="Ratings" asp-action="Add" method="POST" class="comments-form">
+                    <input type="text" name="movieId" value="@Model.Id" hidden />
+                    <input type="number" max="5" min="1" name="Score" onchange="StarCounter();" id="counter_number" hidden required>
+                    <button type="submit" style="padding:0.3rem 1rem; border-radius:3px; cursor:pointer;color:#FFF; background-color:#ff6a00;border:0; display:inline-block;">Rate</button>
+                </form>
+
+
+                @if (Model.Ratings.Count > 0)
+                {
+                    <p>Rating: @Convert.ToInt32(Model.Ratings.Average(x => x.Score)) / 5</p>
+                }
+
             </div>
+
+            <br />
 
             <!-- If the user is authenticated can post comment-->
             @if (User.Identity.IsAuthenticated)
             {
-                <form asp-controller="Comments" asp-action="Add" method="POST" class="comments-form">
-                    <input type="text" name="movieId" value="@Model.Id" hidden />
-                    <textarea type="text" name="comment" id="comment_comment" onkeypress="CheckLength()" cols="20" rows="5" required placeholder="Comment something..."></textarea>
+        <form asp-controller="Comments" asp-action="Add" method="POST" class="comments-form">
+            <input type="text" name="movieId" value="@Model.Id" hidden />
+            <textarea type="text" name="comment" id="comment_comment" onkeypress="CheckLength()" cols="20" rows="5" required placeholder="Comment something..."></textarea>
 
-                    <button type="submit" class="btn-add-comment" id="btn_comment">Add Comment</button>
-                </form>
-            }
+            <button type="submit" class="btn-add-comment" id="btn_comment">Add Comment</button>
+        </form>}
             @if (Model.Comments.Count() > 0)
-            {
-                <!-- Otheriwse show comments-->
-                @foreach (var comment in Model.Comments.OrderByDescending(x => x.DateCreated))
-                {   
-        <div class="comment-div">
-            <div class="comment-container"><p class="comment-user">@comment.Username <div class="separator"></div> <span class="comment-date">@comment.DateCreated</span></p></div>
-            <p class="comment-message">@comment.Message</p>
-            @if (User.Identity.IsAuthenticated)
-            {
-                @if (User.FindFirst("Username").Value == comment.Username)
+            {<!-- Otheriwse show comments-->
+               @foreach (var comment in Model.Comments.OrderByDescending(x => x.DateCreated))
                 {
-                    <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id"><div class="comment-delete">&times;</div></a>
-                }
-            }
-        </div>
-                }
-            }
-            else
-            {
-                <p>No Comments</p>
-            }
+                    <div class="comment-div">
+                    <div class="comment-container"><p class="comment-user">@comment.Username <div class="separator"></div> <span class="comment-date">@comment.DateCreated</span></p></div>
+                    <p class="comment-message">@comment.Message</p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @if (User.FindFirst("Username").Value == comment.Username)
+                            {
+                                <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id"><div class="comment-delete">&times;</div></a>
+                            }
+                         }
+                     </div>
+                } 
+             }
+             else
+             {
+                 <p>No Comments</p>
+             }
         </div>
         <br>
         <a asp-controller="Home" asp-action="Index" class="btn"><i class="fas fa-arrow-left"></i> Back</a>
     </div>
 </div>
 
-<script>
 
-    function CheckLength() {
-        var vrednost = document.querySelector('textarea');
-        var kopce = document.getElementById('btn_comment');
-        var total = vrednost.value;
-        if (total.length > 2) {
-            kopce.style.display = "block";
-        } else {
-            kopce.style.display = "none";
-        }
-    }
-</script>
+@section Scripts{ 
+    <script>
+        //var like = document.getElementById('the_heart');
+        //like.addEventListener('mouseleave', function () {
+        //        like.innerHTML = "<i class='fas fa-heart fa-2x'></i>";
+        //    });
+        //var like = document.getElementById('the_heart');
+        //like.addEventListener('mouseover', function () {
+        //    like.innerHTML = "<i class='far fa-heart fa-2x'></i>";
+        //});
+
+    </script>
+    <script src="~/js/comment-validator.js"></script>
+    <script src="~/js/rating-stars.js"></script>
+
+}

@@ -33,7 +33,7 @@ namespace MyMovies.Repositories
         // Get Movie by ID
         public Movie GetMovieById(int id)
         {
-            return _context.Movies.Include(x => x.Comments).ThenInclude(x => x.User).FirstOrDefault(x => x.Id == id);
+            return _context.Movies.Include(x => x.Comments).ThenInclude(x => x.User).Include(x => x.Ratings).ThenInclude(x => x.User).Include(x => x.Likes).ThenInclude(x=>x.User).FirstOrDefault(x => x.Id == id);
         }
 
         // Search - Get by Title

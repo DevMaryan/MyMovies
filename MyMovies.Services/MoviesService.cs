@@ -29,6 +29,19 @@ namespace MyMovies.Services
             return _movieRepository.GetMovieById(id);
         }
 
+        public Movie GetMovieDetails(int id)
+        {
+            var movie = GetMovieById(id);
+
+            if(movie == null)
+            {
+                return movie;
+            }
+            movie.Views++;
+
+            _movieRepository.UpdateMovie(movie);
+            return movie;
+        }
         // Service -> Repository -> Interface -> Create Movie
         public void CreateMovie(Movie movie)
         {
