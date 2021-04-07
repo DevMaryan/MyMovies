@@ -11,6 +11,7 @@ N-Tier Architecture with (DI) Dipendency Injection pattern:
 <p>Front-End tecnology: HTML, CSS, JavaScript</p>
 <p>Back-End: C# .Net Core</p>
 
+Features: 
 <ul>
     <li>Comments</li>
     <li>Like/Dislike</li>
