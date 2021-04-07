@@ -22,6 +22,13 @@ Features:
 
 </ul>
 
+Admin Dashboard:
+<ul>
+    <li>Delete User</li>
+    <li>Update User</li>
+    <li>Make Admin</li>
+</ul>
+
 
 <img src="https://i.ibb.co/4TKPKzQ/views-likes-rate-comments.png" alt="views-likes-rate-comments" border="0">
 <img src="https://i.ibb.co/9ZCqgcv/ss.png" alt="ss" border="0">
