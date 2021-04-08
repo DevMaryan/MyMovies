@@ -27,6 +27,7 @@ Admin Dashboard:
     <li>Delete User</li>
     <li>Update User</li>
     <li>Make Admin</li>
+    <li>Sidebar</li>
 </ul>
 
 <img src="https://i.ibb.co/YQzbvN7/ss1.png" alt="ss1" border="0">
