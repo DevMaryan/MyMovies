@@ -15,5 +15,7 @@ namespace MyMovies.Repositories.Interfaces
         void CreateMovie(Movie movie);
         void DeleteMovie(Movie movie);
         void UpdateMovie(Movie movie);
+        List<Movie> GetMostRecentMovies(int count);
+        List<Movie> GetTopMovies(int count);
     }
 }

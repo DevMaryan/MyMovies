@@ -23,5 +23,6 @@ namespace MyMovies.ViewModels
 
         public int Views { get; set; }
 
+
     }
 }

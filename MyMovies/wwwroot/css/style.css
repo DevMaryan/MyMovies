@@ -30,18 +30,21 @@ body {
     background-color:var(--bg2-background-color);
     color:#666;
     margin-bottom:40px;
+
 }
-#container2{
-    padding:1.2rem;
-    width:1000px;
-    margin:0 auto;
-    background-color:var(--bg2-background-color);
-    color:#666;
-    display:flex;
+#container2 {
+    padding: 1.2rem;
+    width: 1000px;
+    margin: 0 auto;
+    background-color: var(--bg2-background-color);
+    color: #666;
+    display: flex;
     flex-direction: row;
-    align-items:stretch;
+    align-items: stretch;
     flex-wrap: wrap;
-    margin-bottom:3rem;
+    margin-bottom: 3rem;
+    position: relative;
+    min-height:70vh;
 }
 a{
     text-decoration: none;
@@ -169,6 +172,7 @@ tbody tr:nth-child(even){
     align-items:stretch;
     flex-wrap: wrap;
     border-radius: 3px;
+    position:relative;
 }
 .single-card{
    width:100%; 
@@ -507,3 +511,73 @@ a{
 #btn_comment{
     display:none;
 }
+#left-side-bar{
+    position:absolute;
+    top: 30px;
+    left:-200px;
+}
+#right-side-bar {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+#left-side-bar img{
+    width:45px;
+    height:45px;
+    object-fit:cover;
+    resize:none;
+}
+#right-side-bar img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    resize: none;
+}
+.card-sb{
+    margin:10px;
+    cursor:pointer;
+    padding:0.5rem;
+    color:#333;
+    border-radius:5px;
+    transition:0.3s ease-in-out;
+    position:relative;
+}
+.card-sb:hover {
+    background-color: #333;
+    color: #FFF;
+     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.card-sb img{
+    border-radius:3px;
+}
+.card-sb p{
+    font-weight:bold;
+}
+.card-sb span{
+    font-size:11px;
+}
+#right-side-bar-detail {
+    position: absolute;
+    top: 30px;
+    right: -220px;
+}
+
+#right-side-bar-detail img {
+    width: 100%;
+    height: 75px;
+    object-fit: cover;
+    resize: none;
+}
+.crown{
+    position:absolute;
+    top:5px;
+    right:5px;
+}
+#left-side-bar a:nth-of-type(1) .card-sb {
+    background-color: orangered;
+    color:#FFF;
+}
+/*#left-side-bar a:nth-of-type(2) .card-sb {
+    background-color: orangered;
+    color: #FFF;
+}*/

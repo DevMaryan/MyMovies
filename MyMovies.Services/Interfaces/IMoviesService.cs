@@ -17,5 +17,7 @@ namespace MyMovies.Services.Interfaces
         void CreateMovie(Movie movie);
         void DeleteMovie(int id);
         void UpdateMovie(Movie movie);
+        List<Movie> GetMostRecentMovies(int count);
+        List<Movie> GetTopMovies(int count);
     }
 }

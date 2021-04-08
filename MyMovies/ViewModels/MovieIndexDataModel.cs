@@ -12,6 +12,6 @@ namespace MyMovies.ViewModels
         public List<MovieRatingModel> Ratings { get; set; }
 
         public List<MovieLikesModel> Likes { get; set; }
-        public string SidebarData { get; set; }
+        public MovieSidebarDataModel SidebarData { get; set; } = new MovieSidebarDataModel(); // It will create empty list, at least return it will not be null object
     }
 }

@@ -125,6 +125,18 @@ namespace MyMovies.Mappings
             };
         }
 
+        public static MovieSidebarModel ToMovieSidebarModel(this Movie movie)
+        {
+            return new MovieSidebarModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                ImageUrl = movie.ImageUrl,
+                DateCreated = movie.Date,
+                Views = movie.Views,
+            };
+        }
+
 
     }
 }

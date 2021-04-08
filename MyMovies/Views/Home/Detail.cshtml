@@ -1,4 +1,4 @@
-﻿@model MyMovies.ViewModels.MovieDetailModel;
+﻿@model MyMovies.ViewModels.MovieDetailDataModel;
 @{
     ViewBag.Title = "Detail View";
 }
@@ -7,25 +7,25 @@
         <!-- SINGLE MOVIE CARD-->
         <div class="single-card">
             <div class="flx">
-                <img class="single-card-img" src="@Model.ImageUrl">
+                <img class="single-card-img" src="@Model.MovieDetail.ImageUrl">
                 <div class="single-card-genre">
                     <p class='single-card-title'><b>Title</b></p>
-                    <h1>@Model.Title</h1>
+                    <h1>@Model.MovieDetail.Title</h1>
                     <p><b>Genre</b></p>
-                    <h1>@Model.Genre</h1>
-                    <h1><i class="far fa-eye"></i> @Model.Views</h1>
+                    <h1>@Model.MovieDetail.Genre</h1>
+                    <h1><i class="far fa-eye"></i> @Model.MovieDetail.Views</h1>
 
                 </div>
             </div>
             <div class="single-card-description">
                 <p><b>Description</b></p>
                 <br>
-                <p>@Model.Description</p>
+                <p>@Model.MovieDetail.Description</p>
                 <br>
-                <p style='font-size:12px;'>Created at @Model.Date</p>
-                @if (Model.DateModified != null)
+                <p style='font-size:12px;'>Created at @Model.MovieDetail.Date</p>
+                @if (Model.MovieDetail.DateModified != null)
                 {
-                    <p style='font-size:12px;'>Updated at @Model.DateModified</p> }
+                    <p style='font-size:12px;'>Updated at @Model.MovieDetail.DateModified</p> }
                 else
                 {
                     <p></p>
@@ -36,19 +36,19 @@
                 <div>
 
                     @*@if (Model.Likes.FirstOrDefault(x => x.Liked) && ((int.Parse(User.FindFirst("Id").Value) == (Model.Likes.FirstOrDefault(x => x.UserId)))))*@
-                    @if (Model.Likes.Count > 0)
+                    @if (Model.MovieDetail.Likes.Count > 0)
                     {
-                        @foreach (var like in Model.Likes)
+                        @foreach (var like in Model.MovieDetail.Likes)
                         {
                             @if (User.Identity.IsAuthenticated)
                             {
                                 @if (int.Parse(User.FindFirst("Id").Value) == like.UserId)
                                 {
-                                    <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+                                    <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
                                 }
                                 else
                                 {
-                                    <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+                                    <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
                                 }
                             }
                         }
@@ -98,15 +98,15 @@
                 </div>
 
                 <form asp-controller="Ratings" asp-action="Add" method="POST" class="comments-form">
-                    <input type="text" name="movieId" value="@Model.Id" hidden />
+                    <input type="text" name="movieId" value="@Model.MovieDetail.Id" hidden />
                     <input type="number" max="5" min="1" name="Score" onchange="StarCounter();" id="counter_number" hidden required>
                     <button type="submit" style="padding:0.3rem 1rem; border-radius:3px; cursor:pointer;color:#FFF; background-color:#ff6a00;border:0; display:inline-block;">Rate</button>
                 </form>
 
 
-                @if (Model.Ratings.Count > 0)
+                @if (Model.MovieDetail.Ratings.Count > 0)
                 {
-                    <p>Rating: @Convert.ToInt32(Model.Ratings.Average(x => x.Score)) / 5</p>
+                    <p>Rating: @Convert.ToInt32(Model.MovieDetail.Ratings.Average(x => x.Score)) / 5</p>
                 }
 
             </div>
@@ -117,14 +117,14 @@
             @if (User.Identity.IsAuthenticated)
             {
         <form asp-controller="Comments" asp-action="Add" method="POST" class="comments-form">
-            <input type="text" name="movieId" value="@Model.Id" hidden />
+            <input type="text" name="movieId" value="@Model.MovieDetail.Id" hidden />
             <textarea type="text" name="comment" id="comment_comment" onkeypress="CheckLength()" cols="20" rows="5" required placeholder="Comment something..."></textarea>
 
             <button type="submit" class="btn-add-comment" id="btn_comment">Add Comment</button>
         </form>}
-            @if (Model.Comments.Count() > 0)
+            @if (Model.MovieDetail.Comments.Count() > 0)
             {<!-- Otheriwse show comments-->
-               @foreach (var comment in Model.Comments.OrderByDescending(x => x.DateCreated))
+               @foreach (var comment in Model.MovieDetail.Comments.OrderByDescending(x => x.DateCreated))
                 {
                     <div class="comment-div">
                     <div class="comment-container"><p class="comment-user">@comment.Username <div class="separator"></div> <span class="comment-date">@comment.DateCreated</span></p></div>
@@ -147,6 +147,23 @@
         <br>
         <a asp-controller="Home" asp-action="Index" class="btn"><i class="fas fa-arrow-left"></i> Back</a>
     </div>
+
+        <!-- Right Side Bar-->
+    
+    <div id="right-side-bar-detail">
+        <h3>Newest movies</h3>
+        @foreach (var movie in Model.SidebarData.MostRecentMovies)
+        {
+            <a asp-controller="Home" asp-action="Detail" asp-route-id="@movie.Id">
+                <div class="card-sb">
+                    <img src="@movie.ImageUrl" />
+                    <p>@movie.Title</p>
+                    <span>@movie.DateCreated</span>
+                </div>
+            </a>
+        }
+    </div>
+
 </div>
 
 

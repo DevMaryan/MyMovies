@@ -10,25 +10,54 @@
 <div id="container2">
     @if (Model.IndexModels.Count() == 0)
     {
-        <p>No Data</p>
+    <p>No Data</p> 
     }
     else
-    {
+     {
         @foreach (var movie in Model.IndexModels)
-        {
-            <!-- MAIN CARD-->
-            <div class="card">
-                <img class="card-img" src="@movie.ImageUrl">
-                <p class='card-title'>@movie.Title</p>
-                <div class="card-genre">
-                    <p>@movie.Genre</p>
-                </div>
-                <a href="/Home/Detail/@movie.Id" class="btn2">VIEW</a>
-            </div>
-            <!-- END OF MAIN CARD-->
-
+         {<!-- MAIN CARD-->
+                    <div class="card">
+                        <img class="card-img" src="@movie.ImageUrl">
+                         <p class='card-title'>@movie.Title</p>
+                        <div class="card-genre">
+                            <p>@movie.Genre</p>
+                        </div>
+                        <a href="/Home/Detail/@movie.Id" class="btn2">VIEW</a>
+                    </div> <!-- END OF MAIN CARD-->
         }
-
     }
 
+     <!-- Left Side Bar-->
+    <div id="left-side-bar">
+        <h3 style="border-bottom: 1px solid red; padding-bottom: 7px;">Top 5 movies</h3>
+        @foreach (var movie in Model.SidebarData.TopMovies)
+        {
+            <a asp-controller="Home" asp-action="Detail" asp-route-id="@movie.Id">
+                <div class="card-sb">
+                    <center><img src="@movie.ImageUrl" /></center>
+                        <p>@movie.Title</p>
+                        <span class="crown"><i class="fas fa-crown" style="color:goldenrod;"></i> @movie.Views</span>
+                </div>
+            </a>
+        }
+    </div>
+
+
+    <!-- Right Side Bar-->
+    
+    <div id="right-side-bar">
+        <h3 style="border-bottom: 1px solid red; padding-bottom: 7px;">Newest movies</h3>
+        @foreach (var movie in Model.SidebarData.MostRecentMovies)
+        {
+            <a asp-controller="Home" asp-action="Detail" asp-route-id="@movie.Id">
+                <div class="card-sb">
+                    <img src="@movie.ImageUrl" />
+                    <p>@movie.Title</p>
+                    <span>@movie.DateCreated</span>
+                </div>
+            </a>
+        }
+    </div>
+
 </div>
+

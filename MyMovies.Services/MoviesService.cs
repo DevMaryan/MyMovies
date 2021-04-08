@@ -93,5 +93,15 @@ namespace MyMovies.Services
                 throw new NotFoundException($"The movie with id {movie.Id} was not found");
             }
         }
+
+        public List<Movie> GetMostRecentMovies(int count)
+        {
+            return _movieRepository.GetMostRecentMovies(count);
+        }
+
+        public List<Movie> GetTopMovies(int count)
+        {
+            return _movieRepository.GetTopMovies(count);
+        }
     }
 }

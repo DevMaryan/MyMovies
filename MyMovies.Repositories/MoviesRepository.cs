@@ -26,7 +26,7 @@ namespace MyMovies.Repositories
         // Get all Movies
         public List<Movie> GetAllMovies()
         {
-            return _context.Movies.ToList();
+            return _context.Movies.OrderByDescending(x => x.Date).ToList();
         }
 
 
@@ -55,6 +55,16 @@ namespace MyMovies.Repositories
         {
             _context.Movies.Update(movie);
             _context.SaveChanges();
+        }
+
+        public List<Movie> GetMostRecentMovies(int count)
+        {
+            return _context.Movies.OrderByDescending(x => x.Date).Take(count).ToList();
+        }
+
+        public List<Movie> GetTopMovies(int count)
+        {
+            return _context.Movies.OrderByDescending(x => x.Views).Take(count).ToList();
         }
     }
 }

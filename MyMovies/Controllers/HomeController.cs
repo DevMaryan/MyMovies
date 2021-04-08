@@ -9,6 +9,7 @@ using MyMovies.ViewModels;
 using MyMovies.Mappings;
 using MyMovies.Common.Exceptions;
 using Microsoft.AspNetCore.Authorization;
+using MyMovies.Models;
 
 namespace MyMovies.Controllers
 {
@@ -31,8 +32,13 @@ namespace MyMovies.Controllers
 
                 
             var movieIndexModels = movies.Select(x => x.ToIndexModel()).ToList();
-
             IndexDataModel.IndexModels = movieIndexModels;
+
+            var mostRecentMovies = _service.GetMostRecentMovies(5);
+            var topMovies = _service.GetTopMovies(5);
+
+            IndexDataModel.SidebarData.MostRecentMovies = mostRecentMovies.Select(x => x.ToMovieSidebarModel()).ToList();
+            IndexDataModel.SidebarData.TopMovies = topMovies.Select(x => x.ToMovieSidebarModel()).ToList();
 
             return View(IndexDataModel);
         }
@@ -146,8 +152,20 @@ namespace MyMovies.Controllers
                 {
                     return RedirectToAction("Error", "Info");
                 }
-                var viewModel = select_movie.ToDetailModel();
-                return View(viewModel);
+                var movieDetailDataModel = new MovieDetailDataModel();
+
+                movieDetailDataModel.MovieDetail = select_movie.ToDetailModel();
+
+
+                var mostRecentMovies = _service.GetMostRecentMovies(5);
+                var topMovies = _service.GetTopMovies(5);
+
+                movieDetailDataModel.SidebarData.MostRecentMovies = mostRecentMovies.Select(x => x.ToMovieSidebarModel()).ToList();
+                movieDetailDataModel.SidebarData.TopMovies = topMovies.Select(x => x.ToMovieSidebarModel()).ToList();
+
+
+
+                return View(movieDetailDataModel);
             }
             catch(Exception ex)
             {
