@@ -10,6 +10,7 @@ using MyMovies.Mappings;
 using MyMovies.Common.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using MyMovies.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace MyMovies.Controllers
 {
@@ -17,10 +18,13 @@ namespace MyMovies.Controllers
     {
         private IMoviesService _service { get; set; }
 
-        public HomeController(IMoviesService service)
+        private IConfiguration _configuration { get; set; }
+
+        public HomeController(IMoviesService service, IConfiguration configuration)
         {
 
             _service = service;
+            _configuration = configuration;
         }
         // Index PAGE
         public IActionResult Index(string title, string successMessage)
@@ -34,8 +38,13 @@ namespace MyMovies.Controllers
             var movieIndexModels = movies.Select(x => x.ToIndexModel()).ToList();
             IndexDataModel.IndexModels = movieIndexModels;
 
-            var mostRecentMovies = _service.GetMostRecentMovies(5);
-            var topMovies = _service.GetTopMovies(5);
+            // We are taking the count from appsettings.json
+            int topRecipesCount = _configuration.GetValue<int>("SidebarConfig:MostRecentRecipesCount");
+            int topMoviesCount = _configuration.GetValue<int>("SidebarConfig:TopRecipeCount");
+
+
+            var mostRecentMovies = _service.GetMostRecentMovies(topRecipesCount);
+            var topMovies = _service.GetTopMovies(topMoviesCount);
 
             IndexDataModel.SidebarData.MostRecentMovies = mostRecentMovies.Select(x => x.ToMovieSidebarModel()).ToList();
             IndexDataModel.SidebarData.TopMovies = topMovies.Select(x => x.ToMovieSidebarModel()).ToList();

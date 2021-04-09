@@ -73,7 +73,7 @@ namespace MyMovies.Services
 
         }
 
-        public bool ToggleAdminRole(int id)
+        public bool ToggleAdminRole(int id) 
         {
             var response = false;
             var selected_user = _usersRepository.GetById(id);

@@ -151,14 +151,13 @@
         <!-- Right Side Bar-->
     
     <div id="right-side-bar-detail">
-        <h3>Newest movies</h3>
+        <h3 style="border-bottom: 1px solid red; padding-bottom: 7px;">Newest movies</h3>
         @foreach (var movie in Model.SidebarData.MostRecentMovies)
         {
             <a asp-controller="Home" asp-action="Detail" asp-route-id="@movie.Id">
                 <div class="card-sb">
                     <img src="@movie.ImageUrl" />
                     <p>@movie.Title</p>
-                    <span>@movie.DateCreated</span>
                 </div>
             </a>
         }

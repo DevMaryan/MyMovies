@@ -29,11 +29,17 @@ namespace MyMovies
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = Movies; Trusted_Connection = True"));
+            services.AddDbContext<MoviesDbContext>(x => x.UseSqlServer(Configuration.GetConnectionString("MyDBConnection")));
 
-            
+
+            //var cookieExprrTime = Configuration.GetValue<int>("CookieExpirationPeriod");
+            //var topRecipesCount = Configuration["SidebarConfig:TopRecipesCount"];
+
+            // We are taking cookie experation value from appsettings.json
+            var cookieExprTime = Configuration.GetValue<int>("CookieExpirationPeriod");
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options=> {
-                options.ExpireTimeSpan = TimeSpan.FromDays(15);
+                options.ExpireTimeSpan = TimeSpan.FromDays(cookieExprTime);
                 options.LoginPath = "/Auth/SignIn"; 
                 options.LogoutPath = "/Auth/SignOut";
                 options.AccessDeniedPath= "/Auth/AccessDenied";
