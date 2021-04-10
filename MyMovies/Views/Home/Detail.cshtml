@@ -34,28 +34,38 @@
                 <br />
                 <!-- LIKE future - 1st attempt -->
                 <div>
+                    <!-- LIKE TRY-->
                     @if (User.Identity.IsAuthenticated)
                     {
-                        @if (Model.MovieDetail.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
+                        var like = Model.MovieDetail.Likes.FirstOrDefault(x => x.UserId == (int.Parse(User.FindFirst("Id").Value)));
+                        if (like != null)
                         {
-                            @foreach (var like in Model.MovieDetail.Likes)
-                            {
-
-                                @if (Model.MovieDetail.Likes.Any(x => x.UserId == like.UserId))
-                                {
-
-                                    <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;"> @Convert.ToInt32(Model.MovieDetail.Likes.Count) </span></div></a>
-                                }
-
-                            }
-
+                            <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;"> @Convert.ToInt32(Model.MovieDetail.Likes.Count) </span></div></a>
                         }
-                        @if (Model.MovieDetail.Likes.All(x => x.UserId != (int.Parse(User.FindFirst("Id").Value))))
+                        else
                         {
                             <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
                         }
                     }
 
+                    <!-- Like Try-->
+                    @*@if (User.Identity.IsAuthenticated)
+        {
+            @if (Model.MovieDetail.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
+            {
+                @foreach (var like in Model.MovieDetail.Likes)
+                {
+                    @if (Model.MovieDetail.Likes.Any(x => x.UserId == like.UserId))
+                    {
+                        <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;"> @Convert.ToInt32(Model.MovieDetail.Likes.Count) </span></div></a>
+                    }
+                }
+            }
+            else
+            {
+                <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
+            }
+        }*@
 
                     @*@if (Model.Likes.FirstOrDefault(x => x.Liked) && ((int.Parse(User.FindFirst("Id").Value) == (Model.Likes.FirstOrDefault(x => x.UserId)))))*@
                     @*@if (Model.MovieDetail.Likes.Count > 0)
