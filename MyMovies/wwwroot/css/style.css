@@ -25,7 +25,7 @@ body {
 }
 #container{
     padding:1.2rem;
-    width:1000px;
+    width:900px;
     margin:0 auto;
     background-color:var(--bg2-background-color);
     color:#666;
@@ -34,7 +34,7 @@ body {
 }
 #container2 {
     padding: 1.2rem;
-    width: 1000px;
+    width: 900px;
     margin: 0 auto;
     background-color: var(--bg2-background-color);
     color: #666;
@@ -178,6 +178,11 @@ tbody tr:nth-child(even){
    width:100%; 
    display:flex;
    flex-direction: column;
+}
+.single-card-detail {
+    width: 950px;
+    display: flex;
+    flex-direction: column;
 }
 .single-card-img{
     width:700px;
@@ -519,7 +524,12 @@ a{
 #right-side-bar {
     position: absolute;
     top: 30px;
-    right: 20px;
+    right: -160px;
+}
+#right-side-bar-front {
+    position: absolute;
+    top: 30px;
+    right: -70px;
 }
 #left-side-bar img{
     width:45px;
@@ -541,15 +551,19 @@ a{
     border-radius:5px;
     transition:0.3s ease-in-out;
     position:relative;
+    width:170px;
 }
 .card-sb:hover {
     background-color: #333;
     color: #FFF;
      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-.card-sb img{
-    border-radius:3px;
-}
+    .card-sb img {
+        border-radius: 3px;
+        height: 160px;
+        width: 100%;
+        object-fit: cover;
+    }
 .card-sb p{
     font-weight:bold;
 }
