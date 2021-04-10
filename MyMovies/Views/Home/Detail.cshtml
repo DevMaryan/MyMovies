@@ -34,25 +34,47 @@
                 <br />
                 <!-- LIKE future - 1st attempt -->
                 <div>
-
-                    @*@if (Model.Likes.FirstOrDefault(x => x.Liked) && ((int.Parse(User.FindFirst("Id").Value) == (Model.Likes.FirstOrDefault(x => x.UserId)))))*@
-                    @if (Model.MovieDetail.Likes.Count > 0)
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        @foreach (var like in Model.MovieDetail.Likes)
+                        @if (Model.MovieDetail.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
                         {
-                            @if (User.Identity.IsAuthenticated)
+                            @foreach (var like in Model.MovieDetail.Likes)
                             {
-                                @if (int.Parse(User.FindFirst("Id").Value) == like.UserId)
+
+                                @if (Model.MovieDetail.Likes.Any(x => x.UserId == like.UserId))
                                 {
-                                    <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
+
+                                    <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;"> @Convert.ToInt32(Model.MovieDetail.Likes.Count) </span></div></a>
                                 }
-                                else
-                                {
-                                    <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
-                                }
+
                             }
+
+                        }
+                        @if (Model.MovieDetail.Likes.All(x => x.UserId != (int.Parse(User.FindFirst("Id").Value))))
+                        {
+                            <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
                         }
                     }
+
+
+                    @*@if (Model.Likes.FirstOrDefault(x => x.Liked) && ((int.Parse(User.FindFirst("Id").Value) == (Model.Likes.FirstOrDefault(x => x.UserId)))))*@
+                    @*@if (Model.MovieDetail.Likes.Count > 0)
+        {
+            @foreach (var like in Model.MovieDetail.Likes)
+            {
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @if (int.Parse(User.FindFirst("Id").Value) == like.UserId)
+                    {
+                        <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
+                    }
+                }
+            }
+        }*@
 
                 </div>
 
@@ -125,7 +147,7 @@
             @if (Model.MovieDetail.Comments.Count() > 0)
             {<!-- Otheriwse show comments-->
                @foreach (var comment in Model.MovieDetail.Comments.OrderByDescending(x => x.DateCreated))
-                {
+               {
                     <div class="comment-div">
                     <div class="comment-container"><p class="comment-user">@comment.Username <div class="separator"></div> <span class="comment-date">@comment.DateCreated</span></p></div>
                     <p class="comment-message">@comment.Message</p>
@@ -135,21 +157,21 @@
                             {
                                 <a asp-controller="Comments" asp-action="Delete" asp-route-id="@comment.Id"><div class="comment-delete">&times;</div></a>
                             }
-                         }
+                        }
                      </div>
-                } 
-             }
-             else
-             {
+               } 
+            }
+            else
+            {
                  <p>No Comments</p>
-             }
+            }
         </div>
         <br>
         <a asp-controller="Home" asp-action="Index" class="btn"><i class="fas fa-arrow-left"></i> Back</a>
     </div>
 
         <!-- Right Side Bar-->
-    
+
     <div id="right-side-bar-detail">
         <h3 style="border-bottom: 1px solid red; padding-bottom: 7px;">Newest movies</h3>
         @foreach (var movie in Model.SidebarData.MostRecentMovies)

@@ -151,6 +151,7 @@ namespace MyMovies.Controllers
         }
      
         // DETAIL MOVIE
+        [AllowAnonymous]
         public IActionResult Detail(int id)
         {
             try

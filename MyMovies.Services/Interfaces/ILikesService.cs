@@ -9,8 +9,8 @@ namespace MyMovies.Services.Interfaces
     {
         void Add(int movieId, int userId);
         Like GetLikeId(int id);
-        void RemoveLike(Like like_id);
 
-
+        bool FindUserLike(int id);
+        void RemoveLike(Like like);
     }
 }

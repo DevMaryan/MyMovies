@@ -37,10 +37,20 @@ namespace MyMovies.Repositories
             return _context.Users.FirstOrDefault(x => x.Id == userId);
         }
 
-        public void RemoveLike(Like the_like)
+        public void RemoveLike(Like like)
         {
-            _context.Likes.Remove(the_like);
+            _context.Likes.Remove(like);
             _context.SaveChanges();
         }
+
+        public bool FindUserLike(int id)
+        {
+            return _context.Likes.Any(x => x.UserId==id);
+        }
+        public Like FindMovieId(int movieid)
+        {
+            return _context.Likes.FirstOrDefault(x => x.MovieId == movieid);
+        }
+
     }
 }

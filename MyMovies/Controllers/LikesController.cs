@@ -18,7 +18,6 @@ namespace MyMovies.Controllers
             _likesService = likesService;
         }
 
-
         public IActionResult Add(int id)
         {
             try
@@ -33,23 +32,40 @@ namespace MyMovies.Controllers
                 return RedirectToAction("Index", "Home", new { ErrorMessage = "Nesto se sluci" });
             }
         }
+        [Authorize]
         public IActionResult Remove(int id)
         {
-            var user = int.Parse(User.FindFirst("id").Value);
-
-            var the_like = _likesService.GetLikeId(id);
-
-            var the_user = the_like.UserId;
-
-            if (the_like != null && user == the_user)
+            try
             {
-                _likesService.RemoveLike(the_like);
-                return RedirectToAction("Detail", "Home", new { id = the_like.MovieId });
+                var user = int.Parse(User.FindFirst("id").Value);
+                var like = _likesService.GetLikeId(id);
+                var the_user = like.UserId;
+
+                if(like != null && user == the_user)
+                {
+                    _likesService.RemoveLike(like);
+                }
+                return RedirectToAction("Detail", "Home", new { id = like.MovieId });
             }
-            else
+            catch (Exception)
             {
-                return RedirectToAction("Error", "Info");
+                return RedirectToAction("Index", "Home", new { ErrorMessage = "Nesto se sluci" });
             }
+
         }
+
+        //public IActionResult Remove(int like)
+        //{
+        //    try
+        //    {
+        //        _likesService.RemoveLike(like);
+        //        return RedirectToAction("Detail", "Home");
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return RedirectToAction("Index", "Home", new { ErrorMessage = "Nesto se sluci" });
+        //    }
+
+        //}
     }
 }

@@ -41,9 +41,10 @@ namespace MyMovies.Services
             }
 
         }
-        public void RemoveLike(Like like_id)
+        public void RemoveLike(Like like)
         {
-            _likesRepository.RemoveLike(like_id);
+
+            _likesRepository.RemoveLike(like);
 
         }
 
@@ -52,5 +53,9 @@ namespace MyMovies.Services
             return _likesRepository.GetLikeById(id);
         }
 
+        public bool FindUserLike(int id)
+        {
+            return _likesRepository.FindUserLike(id);
+        }
     }
 }
