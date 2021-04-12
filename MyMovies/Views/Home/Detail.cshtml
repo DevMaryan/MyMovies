@@ -14,7 +14,33 @@
                     <p><b>Genre</b></p>
                     <h1>@Model.MovieDetail.Genre</h1>
                     <h1><i class="far fa-eye"></i> @Model.MovieDetail.Views</h1>
-
+                    <div>
+                     <p><b>Rating</b></p>
+                    @if (Model.MovieDetail.Ratings.Count > 0)
+                    {
+                        var rte = @Convert.ToInt32(Model.MovieDetail.Ratings.Average(x => x.Score));
+                        if (rte == 1)
+                            {
+                                <p style="color:red;font-size:20px"><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i></p>
+                            }
+                            else if (rte == 2)
+                            {
+                                <p style="color:red;font-size:20px"><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i></p>
+                            }
+                            else if (rte == 3)
+                            {
+                                <p style="color:red;font-size:20px"><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i><i class='far fa-star'></i></p>
+                            }
+                            else if (rte == 4)
+                            {
+                                 <p style="color:red;font-size:20px"><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='far fa-star'></i></p>
+                            }
+                            else
+                            {
+                                <p style="color:red;font-size:20px"><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i><i class='fas fa-star'></i></p>
+                            }
+                    }
+                    </div>
                 </div>
             </div>
             <div class="single-card-description">
@@ -25,11 +51,10 @@
                 <p style='font-size:12px;'>Created at @Model.MovieDetail.Date</p>
                 @if (Model.MovieDetail.DateModified != null)
                 {
-                    <p style='font-size:12px;'>Updated at @Model.MovieDetail.DateModified</p> }
-                else
-                {
-                    <p></p>
-                }
+            <p style='font-size:12px;'>Updated at @Model.MovieDetail.DateModified</p> }
+        else
+        {
+            <p></p>}
 
                 <br />
                 <!-- LIKE future - 1st attempt -->
@@ -40,68 +65,66 @@
                         var like = Model.MovieDetail.Likes.FirstOrDefault(x => x.UserId == (int.Parse(User.FindFirst("Id").Value)));
                         if (like != null)
                         {
+            <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;"> @Convert.ToInt32(Model.MovieDetail.Likes.Count) </span></div></a> }
+                            else
+                            {
+            <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>}
+                        }
+
+                    <!-- Like Try-->
+                    @*@if (User.Identity.IsAuthenticated)
+            {
+                @if (Model.MovieDetail.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
+                {
+                    @foreach (var like in Model.MovieDetail.Likes)
+                    {
+                        @if (Model.MovieDetail.Likes.Any(x => x.UserId == like.UserId))
+                        {
                             <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;"> @Convert.ToInt32(Model.MovieDetail.Likes.Count) </span></div></a>
+                        }
+                    }
+                }
+                else
+                {
+                    <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
+                }
+            }*@
+
+                    @*@if (Model.Likes.FirstOrDefault(x => x.Liked) && ((int.Parse(User.FindFirst("Id").Value) == (Model.Likes.FirstOrDefault(x => x.UserId)))))*@
+                    @*@if (Model.MovieDetail.Likes.Count > 0)
+            {
+                @foreach (var like in Model.MovieDetail.Likes)
+                {
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (int.Parse(User.FindFirst("Id").Value) == like.UserId)
+                        {
+                            <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
                         }
                         else
                         {
                             <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
                         }
                     }
-
-                    <!-- Like Try-->
-                    @*@if (User.Identity.IsAuthenticated)
-        {
-            @if (Model.MovieDetail.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
-            {
-                @foreach (var like in Model.MovieDetail.Likes)
-                {
-                    @if (Model.MovieDetail.Likes.Any(x => x.UserId == like.UserId))
-                    {
-                        <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;"> @Convert.ToInt32(Model.MovieDetail.Likes.Count) </span></div></a>
-                    }
                 }
-            }
-            else
-            {
-                <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
-            }
-        }*@
-
-                    @*@if (Model.Likes.FirstOrDefault(x => x.Liked) && ((int.Parse(User.FindFirst("Id").Value) == (Model.Likes.FirstOrDefault(x => x.UserId)))))*@
-                    @*@if (Model.MovieDetail.Likes.Count > 0)
-        {
-            @foreach (var like in Model.MovieDetail.Likes)
-            {
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @if (int.Parse(User.FindFirst("Id").Value) == like.UserId)
-                    {
-                        <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.MovieDetail.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.MovieDetail.Likes.Count)</span></div></a>
-                    }
-                }
-            }
-        }*@
+            }*@
 
                 </div>
 
 
-               @* 2nd-attempt
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @if (Model.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
-                    {
-                        <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
-                    }
-                    else
-                    {
-                        <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+                @* 2nd-attempt
+        @if (User.Identity.IsAuthenticated)
+        {
+            @if (Model.Likes.Any(x => x.UserId == (int.Parse(User.FindFirst("Id").Value))))
+            {
+                <a asp-controller="Likes" asp-action="Add" asp-route-id="@Model.Id"><div id="the_heart"><i class="far fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
+            }
+            else
+            {
+                <a asp-controller="Likes" asp-action="Remove" asp-route-id="@like.Id"><div><i class="fas fa-heart fa-2x" style="color:red;"></i><span style="color:red;">@Convert.ToInt32(Model.Likes.Count)</span></div></a>
 
-                    }
-                }*@
+            }
+        }*@
 
 
                 <div>
@@ -139,8 +162,9 @@
 
                 @if (Model.MovieDetail.Ratings.Count > 0)
                 {
-                    <p>Rating: @Convert.ToInt32(Model.MovieDetail.Ratings.Average(x => x.Score)) / 5</p>
-                }
+            <p>Rating: @Convert.ToInt32(Model.MovieDetail.Ratings.Average(x => x.Score)) / 5</p>}
+
+
 
             </div>
 

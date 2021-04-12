@@ -11,20 +11,24 @@ using MyMovies.Common.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using MyMovies.Models;
 using Microsoft.Extensions.Configuration;
+using MyMovies.Common.Logs.Services;
+using MyMovies.Common.Logs.Models;
 
 namespace MyMovies.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ILogService _logService;
         private IMoviesService _service { get; set; }
 
         private IConfiguration _configuration { get; set; }
 
-        public HomeController(IMoviesService service, IConfiguration configuration)
+        public HomeController(IMoviesService service, IConfiguration configuration, ILogService logService)
         {
 
             _service = service;
             _configuration = configuration;
+            _logService = logService;
         }
         // Index PAGE
         public IActionResult Index(string title, string successMessage)
@@ -70,6 +74,12 @@ namespace MyMovies.Controllers
                 {
                     var domainModel = movie.ToModel();
                     _service.CreateMovie(domainModel);
+
+                    // Log movie created
+                    var userId = User.FindFirst("Id");
+                    var logData = new LogData() { Type = LogType.Info, DateCreated = DateTime.Now, Message = $"User with id {userId} created movie - {movie.Title}" };
+                    _logService.Log(logData);
+
                     return RedirectToAction("Index", new { SuccessMessage = "Movie is successfully created." });
                 }
                 return View(movie);

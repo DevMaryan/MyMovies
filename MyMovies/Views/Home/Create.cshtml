@@ -15,7 +15,13 @@
             <label for='description' class="title-control">Movie Description</label>
             <textarea type="text" asp-for="Description" class='input-control' required></textarea>
             <label for='genre' class="title-control">Movie Genre</label>
-            <input type="text" asp-for="Genre" class='input-control' required>
+            <select asp-for="Genre" class='input-control' required>
+                <option value="SCI-FI">SCI-FI</option>
+                <option value="Action">Action</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Horror">Horror</option>
+            </select>
             <br>
             <button type="submit" class="btn my">Create</button>
         </form>

@@ -14,6 +14,8 @@ using MyMovies.Services;
 using MyMovies.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using MyMovies.Common.Logs.Services;
+using MyMovies.Middleware;
 
 namespace MyMovies
 {
@@ -62,6 +64,7 @@ namespace MyMovies
             services.AddTransient<ICommentsService, CommentsService>();
             services.AddTransient<IRatingsService, RatingsService>();
             services.AddTransient<ILikesService, LikesService>();
+            services.AddTransient<ILogService, LogService>();
 
             // Register Repositories
             services.AddTransient<IMoviesRepository, MoviesRepository>();
@@ -98,6 +101,10 @@ namespace MyMovies
             app.UseAuthentication(); // Add this, it is required.
 
             app.UseAuthorization();
+
+            app.UseMiddleware<ExceptionLoggingMiddelware>();
+
+            app.UseMiddleware<RequestResponseLogMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
